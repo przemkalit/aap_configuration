@@ -8,11 +8,9 @@
     tower_host:          "{{ tower_hostname | default(omit) }}"
     tower_password:      "{{ tower_password | default(omit) }}"
     tower_username:      "{{ tower_username | default(omit) }}"
-    validate_certs:      "{{ validate_certs | default('false') }}"
-  when: tower_settings.settings is defined
+    validate_certs:      "{{ tower_validate_certs | default('false') }}"
+  loop: "{{ tower_settings }}"
+  loop_control:
+    loop_var: tower_setting_item
   no_log: "{{ tower_configuration_settings_secure_logging }}"
-
-- name: use loop when tower_settings is a list
-  include_tasks: "settings_list.yml"
-  when: tower_settings[0] is defined
 ...
