@@ -36,7 +36,53 @@ This collection depends on the awx.collection since it uses the modules there.
 
 <!--Include some quick examples that cover the most common use cases for your collection content. -->
 
-See [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
+ - tower_hostname, tower_username, tower_password
+ - tower_hostname, tower_oauthtoken
+
+The OAuth2 token is the preferred method. You can obtain the token through the prefered tower_token module, or through the
+AWX CLI [login](https://docs.ansible.com/ansible-tower/latest/html/towercli/reference.html#awx-login)
+command.
+
+These can be specified via (from highest to lowest precedence):
+
+ - direct role variables as mentioned above
+ - environment variables (most useful when running against localhost)
+ - a config file path specified by the `tower_config_file` parameter
+ - a config file at `~/.tower_cli.cfg`
+ - a config file at `/etc/tower/tower_cli.cfg`
+
+Config file syntax looks like this:
+
+```
+[general]
+host = https://localhost:8043
+verify_ssl = true
+oauth_token = LEdCpKVKc4znzffcpQL5vLG8oyeku6
+```
+
+Tower token module would be invoked with this code:
+```yaml
+    - name: Create a new token using tower username/password
+      awx.awx.tower_token:
+        description: 'Creating token to test tower jobs'
+        scope: "write"
+        state: present
+        tower_host: "{{ tower_hostname }}"
+        tower_username: "{{ tower_username }}"
+        tower_password: "{{ tower_password }}"
+
+```
+
+### See Also:
+
+* [Ansible Using collections](https://docs.ansible.com/ansible/latest/user_guide/collections_using.html) for more details.
+
+## Release and Upgrade Notes
+Notable releases of the `awx.awx` collection:
+ - 0.1.0 Initial Release Allows for a single json structure to import all modules in the awx.awx collection.
+
+## Roadmap
+Adding the ability to use direct output from the awx export command in the roles along with the current data model.
 
 ## Contributing to this collection
 
