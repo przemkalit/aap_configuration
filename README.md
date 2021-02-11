@@ -33,6 +33,22 @@ This collection depends on the awx.collection since it uses the modules there.
 <!-- Galaxy will eventually list the module docs within the UI, but until that is ready, you may need to either describe your plugins etc here, or point to an external docsite to cover that information. -->
 
 ## Using this collection
+The awx.awx or ansible.tower collection must be invoked in the playbook in order for ansible to pick up the correct modules to use.
+
+Otherwise it will look for the modules only in your base installation. If there are errors complaining about "couldn't resolve module/action" this is the most likely cause.
+
+```yaml
+- name: Playbook to configure ansible tower post installation
+  hosts: localhost
+  connection: local
+  vars:
+    tower_validate_certs: false
+  collections:
+    - awx.awx
+```
+
+Define following vars here, or in `tower_configs/tower_auth.yml`
+`tower_hostname: ansible-tower-web-svc-test-project.example.com`
 
 <!--Include some quick examples that cover the most common use cases for your collection content. -->
 
