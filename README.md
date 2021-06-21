@@ -5,7 +5,21 @@
 
 <!-- Describe the collection and why a user would want to use it. What does the collection do? -->
 
-This is a collection of roles for AWX/Ansible Tower.
+# REQUIREMENTS
+The AWX.AWX OR ANSIBLE.TOWER collections MUST be installed in order for this collection to work. It is recomended they be invoked in the playbook in the following way. 
+
+```yaml
+---
+- name: Playbook to configure ansible tower post installation
+  hosts: localhost
+  connection: local
+  vars:
+    tower_validate_certs: false
+  collections:
+    - ansible.tower
+```
+
+## Included content
 
 ## Release Process
 This collection uses an auatomated GitHub workflow to publish releases to Ansible Galaxy. This workflow can be found in `.github/workflows/galaxy-release.yml`. It is dependent on `release.yml` and `galaxy.yml.j2`. See instructions below for usage.
