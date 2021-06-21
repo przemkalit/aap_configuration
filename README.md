@@ -28,6 +28,20 @@ This collection depends on the awx.collection since it uses the modules there.
 ### Supported connections
 <!-- Optional. If your collection supports only specific connection types (such as HTTPAPI, netconf, or others), list them here. -->
 
+# REQUIREMENTS
+The AWX.AWX OR ANSIBLE.TOWER collections MUST be installed in order for this collection to work. It is recomended they be invoked in the playbook in the following way. 
+
+```yaml
+---
+- name: Playbook to configure ansible tower post installation
+  hosts: localhost
+  connection: local
+  vars:
+    tower_validate_certs: false
+  collections:
+    - ansible.tower
+```
+
 ## Included content
 
 <!-- Galaxy will eventually list the module docs within the UI, but until that is ready, you may need to either describe your plugins etc here, or point to an external docsite to cover that information. -->
