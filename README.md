@@ -56,10 +56,6 @@ collections:
 ## Conversion from Tower_configuration
 If you were using a version of redhat_cop.tower_configuration, please refer to our Conversion Guide here: [Conversion Guide](docs/CONVERSION_GUIDE.md)
 
-## Included content
-
-<!-- Galaxy will eventually list the module docs within the UI, but until that is ready, you may need to either describe your plugins etc here, or point to an external docsite to cover that information. -->
-
 ## Using this collection
 The awx.awx or ansible.controller collection must be invoked in the playbook in order for ansible to pick up the correct modules to use.
 
