@@ -1,4 +1,4 @@
-# Red Hat Communties of Practice Controller Configuration Collection
+# Red Hat Communities of Practice Controller Configuration Collection
 
 ![Ansible Lint](https://github.com/redhat-cop/controller_configuration/workflows/Ansible%20Lint/badge.svg)
 ![Galaxy Release](https://github.com/redhat-cop/controller_configuration/workflows/galaxy-release/badge.svg)
@@ -53,8 +53,10 @@ collections:
     # If you need a specific version of the collection, you can specify like this:
     # version: ...
 ```
-## Conversion from Tower_configuration
-If you were using a version of redhat_cop.tower_configuration, please refer to our Conversion Guide here: [Conversion Guide](docs/CONVERSION_GUIDE.md)
+
+## Conversion from Controller_configuration
+
+If you were using a version of redhat_cop.controller_configuration, please refer to our Conversion Guide here: [Conversion Guide](docs/CONVERSION_GUIDE.md)
 
 ## Using this collection
 The awx.awx or ansible.controller collection must be invoked in the playbook in order for ansible to pick up the correct modules to use.
@@ -123,8 +125,9 @@ Controller token module would be invoked with this code:
 ```
 
 ### Controller Export
-The awx command line can export json that is compatable with this collection.
-More details can be found [here](playbooks/controller_configs_export_model/README.md)
+
+The awx command line can export json that is compatible with this collection.
+More details can be found [here](examples/configs_export_model/README.md)
 
 ### See Also:
 
