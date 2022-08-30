@@ -1,6 +1,12 @@
 ---
 # defaults file for filetree_create
 
+#  Authentication variables
+controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
+controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
+controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
+controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+
 # Controller object lists
 controller_credentials: []
 controller_execution_environments: []
@@ -8,29 +14,15 @@ controller_hosts: []
 controller_inventories: []
 controller_inventory_sources: []
 controller_job_templates: []
-aap_organizations: []
+controller_organizations: []
 controller_projects: []
 controller_roles: []
 controller_schedules: []
 controller_settings: []
-aap_teams: []
-aap_user_accounts: []
-controller_workflows: []
+controller_teams: []
+controller_user_accounts: []
+controller_workflow_job_templates: []
 
 # Output directory path
 output_path: "/tmp/filetree_output"
-
-# Maximum number of objects to return from the list. If a list view returns more an max_objects an exception will be raised
-query_controller_api_max_objects: 10000
-export_related_objects: false
-skip_inventory_sources: false
-skip_inventory_hosts: false
-skip_inventory_groups: false
-controller_configuration_filetree_create_secure_logging: "{{ controller_configuration_secure_logging | default('false') }}"
-
-input_tag:
-  - all
-organization: 'ORGANIZATIONLESS'
-
-query_gateway_api_max_objects: 10000
 ...

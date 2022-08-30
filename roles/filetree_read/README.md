@@ -1,53 +1,66 @@
-# controller_configuration.filetree_read
+controller_configuration.filetree_read
+=========
 
 An ansible role which reads variables from a hierarchical and scalable directory structure which is grouped based on the configuration code life-cycle. It could be used to run the role filetree_read to load variables followed by dispatch role to apply the configuration.
 
-## Requirements
 
-This role requires the [awx.awx](https://docs.ansible.com/ansible/latest/collections/awx/awx/index.html) or [ansible.controller](https://console.redhat.com/ansible/automation-hub/repo/published/ansible/controller) Ansible collection.
+Requirements
+------------
 
-## Role Variables
+ansible-galaxy collection install -r tests/collections/requirements.yml to be installed Currently: awx.awx or ansible.controller and redhat_cop.controller_configuration.
+
+Role Variables
+--------------
+
+### Authentication
+|Variable Name|Default Value|Required|Description|Example|
+|:---:|:---:|:---:|:---:|:---:|
+|`controller_hostname`|""|yes|URL to the Ansible Controller Server.|127.0.0.1|
+|`controller_validate_certs`|`True`|no|Whether or not to validate the Ansible Controller Server's SSL certificate.||
+|`controller_username`|""|yes|Admin User on the Ansible Controller Server.||
+|`controller_password`|""|yes|Controller Admin User's password on the Ansible Controller Server. This should be stored in an Ansible Vault at vars/controller-secrets.yml or elsewhere and called from a parent playbook.||
+|`controller_oauthtoken`|""|yes|Controller Admin User's token on the Ansible Controller Server. This should be stored in an Ansible Vault at or elsewhere and called from a parent playbook.||
+|`vault_controller_hostname`|""|optional|URL to the Ansible Controller Server.|127.0.0.1|
+|`vault_controller_validate_certs`|`True`|optional|Whether or not to validate the Ansible Controller Server's SSL certificate.||
+|`vault_controller_username`|""|optional|Admin User on the Ansible Controller Server.||
+|`vault_controller_password`|""|optional|Controller Admin User's password on the Ansible Controller Server. This should be stored in an Ansible Vault at vars/controller-secrets.yml or elsewhere and called from a parent playbook.||
+|`vault_controller_oauthtoken`|""|optional|Controller Admin User's token on the Ansible Controller Server. This should be stored in an Ansible Vault at or elsewhere and called from a parent playbook.||
 
 ### Organization and Environment Variables
+The following Variables set the organization where should be applied the configuration, the absolute or relative of the directory structure where the variables will be stored and the life-cycle enviroment to use.
 
-The following Variables set the organization where should be applied the configuration, the absolute or relative of the directory structure where the variables will be stored and the life-cycle environment to use.
-
-|Variable Name|Type|Default Value|Required|Description|
-|:---:|:---:|:---:|:---:|:---:|
-|`orgs`|String|N/A|yes|This variable sets the organization where should be applied the configuration.|
-|`dir_orgs_vars`|String|N/A|yes|This variable sets the directory path where the variables will be store.|
-|`env:`|String|dev|no|This variable sets the life-cycle environment to use.|
-|`controller_location`|String|''|no|This variable sets object localtion. It is useful when the configuration need to be replicated in an active/passive sites architecture|
-|`filetree_controller_settings`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_settings.d/|no|Directory path to load controller object variables|
-|`filetree_aap_organizations`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/aap_organizations.d/|no|Directory path to load controller object variables|
-|`filetree_controller_labels`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_labels.d/|no|Directory path to load controller object variables|
-|`filetree_aap_user_accounts`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_users.d/|no|Directory path to load controller object variables|
-|`filetree_aap_teams`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/aap_teams.d/|no|Directory path to load controller object variables|
-|`filetree_controller_credential_types`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_types.d/|no|Directory path to load controller object variables|
-|`filetree_controller_credentials`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/|no|Directory path to load controller object variables|
-|`filetree_controller_credential_input_sources`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_input_sources.d/|no|Directory path to load controller object variables|
-|`filetree_controller_notifications`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_notification_templates.d/|no|Directory path to load controller object variables|
-|`filetree_controller_projects`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_projects.d/|no|Directory path to load controller object variables|
-|`filetree_controller_execution_environments`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_execution_environments.d/|no|Directory path to load controller object variables|
-|`filetree_aap_applications`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/aap_applications.d/|no|Directory path to load controller object variables|
-|`filetree_controller_inventories`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_inventories.d/|no|Directory path to load controller object variables|
-|`filetree_controller_inventory_sources`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_inventory_sources.d/|no|Directory path to load controller object variables|
-|`filetree_controller_instance_groups`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_instance_groups.d/|no|Directory path to load controller object variables|
-|`filetree_controller_hosts`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_hosts.d/|no|Directory path to load controller object variables|
-|`filetree_controller_groups`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_groups.d/|no|Directory path to load controller object variables|
-|`filetree_controller_templates`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/|no|Directory path to load controller object variables|
-|`filetree_controller_workflow_job_templates`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_workflow_job_templates.d/|no|Directory path to load controller object variables|
-|`filetree_controller_schedules`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_schedules.d/|no|Directory path to load controller object variables|
-|`filetree_controller_roles`|String/List(String)|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/|no|Directory path to load controller object variables|
-|`filetree_controller_include`|String/List(String)|omit|no|patterns for find to include only matching|
-|`filetree_controller_exclude`|String/List(String)|omit|no|patterns for find to exclude matching|
-|`filetree_controller_regex`|bool|false|no|switch to allow find to use_regex in combination with include/exclude default matches find default |
+|Variable Name|Default Value|Required|Description|
+|:---:|:---:|:---:|:---:|
+|`orgs:`|Acme|yes|This variable sets the organization where should be applied the configuration.|
+|`dir_orgs_vars:`|orgs_vars|yes|This variable sets the directory path where the variables will be store.|
+|`env:`|dev|yes|This variable sets the life-cycle enviroment to use.|
+|`filetree_controller_settings`|{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_settings.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_organizations`|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_labels`|{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_labels.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_user_accounts`| "{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_users.d/|
+|`filetree_controller_teams`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_teams.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_credential_types`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_types.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_credentials`| {{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_credential_input_sources`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_input_sources.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_notifications`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_notification_templates.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_projects`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_projects.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_execution_environments`| {{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_execution_environments.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_applications`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_applications.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_inventories`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_inventories.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_inventory_sources`| {{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_inventory_sources.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_instance_groups`| {{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_instance_groups.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_hosts`| {{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_hosts.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_groups`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_groups.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_templates`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_workflow_job_templates`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_workflow_job_templates.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_schedules`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_schedules.d/|yes|Directory path to load controller object variables|
+|`filetree_controller_roles`| {{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/|yes|Directory path to load controller object variables|
 
 ### Data Structure
 
-- It accepts two data models as the roles in the infra.controller_configuration collection,a simple straightforward easy to maintain model, and another based on the controller api.
+- It accepts two data models as the roles in the redhat_cop.controller_configuration collection,a simple straightforward easy to maintain model, and another based on the controller api.
 - Variables should be stored in yaml files. It could be used vault to encrypt sensitive data when needed.
-- All variables should be taken from the awx or automation controller object roles from the infra.controller_configuration collection.
+- All variables should be taken from the awx or automation controller object roles from the redhat_cop.controller_configuration collection.
 
 ```yaml
 ---
@@ -67,7 +80,6 @@ controller_templates:
 ```
 
 ### Directory and Variables Data Structure for Authentication (Optional)
-
 - It could be created in the following path encrypted variables to be loaded to authenticate against the different controllers.
 
 ```bash
@@ -81,16 +93,15 @@ orgs_vars/env/
 $ $ ansible-vault view orgs_vars/env/demo-dev/configure_connection_controller_credentials.yml
 Vault password:
 ---
-vault_aap_username: 'ldap-admin-org1'
-vault_aap_password: 'password'
-vault_aap_hostname: controller-dev.lab.example.com
+vault_controller_username: 'ldap-admin-org1'
+vault_controller_password: 'password'
+vault_controller_hostname: controller-dev.lab.example.com
 vault_controller_validate_certs: false
 ...
 
 ```
 
 ### Directory and Variables Data Structure
-
 - A directory structure should be created to store the variables files as below:
 
 ```bash
@@ -123,14 +134,14 @@ orgs_vars/Organization1
     │   │   │   ├── controller_job_templates_crossteams.yml
     │   │   │   └── controller_job_templates_demo_push.yml
     │   │   └── controller_job_templates.yml
-    │   ├── aap_organizations.d
+    │   ├── controller_organizations.d
     │   │   ├── app-casc
-    │   │   │   └── aap_organizations_Global.yml
+    │   │   │   └── controller_organizations_Global.yml
     │   │   ├── app-example
-    │   │   │   ├── aap_organizations_ExampleOrg.yml
-    │   │   │   ├── aap_organizations_Organizations1-2.yml
-    │   │   │   └── aap_organizations_OrgCrossTeams.yml
-    │   │   └── aap_organizations.yml
+    │   │   │   ├── controller_organizations_ExampleOrg.yml
+    │   │   │   ├── controller_organizations_Organizations1-2.yml
+    │   │   │   └── controller_organizations_OrgCrossTeams.yml
+    │   │   └── controller_organizations.yml
     │   ├── controller_projects.d
     │   │   ├── app-casc
     │   │   │   └── controller_projects_casc.yml
@@ -142,25 +153,30 @@ orgs_vars/Organization1
     │   │       ├── controller_projects_inventory_sourcea_prod.yml
     │   │       ├── controller_projects_inventory_sourceb_dev.yml
     │   │       └── controller_projects_inventory_sourceb_prod.yml
-    │   ├── controller_roles.d                                  (1)
-    │   │   ├── app-example                                     (1)
-    │   │   │   ├── controller_roles_cmdb_approvals.yml         (1)
-    │   │   │   ├── controller_roles_inventories.yml            (1)
-    │   │   │   ├── controller_roles_inventory_wf_update.yml    (1)
-    │   │   │   ├── controller_roles_teams.yml                  (1)
-    │   │   │   └── controller_roles_users.yml                  (1)
-    │   │   └── controller_roles.yml                            (1)
+    │   ├── controller_roles.d
+    │   │   ├── app-example
+    │   │   │   ├── controller_roles_cmdb_approvals.yml
+    │   │   │   ├── controller_roles_inventories.yml
+    │   │   │   ├── controller_roles_inventory_wf_update.yml
+    │   │   │   ├── controller_roles_teams.yml
+    │   │   │   └── controller_roles_users.yml
+    │   │   └── controller_roles.yml
     │   ├── controller_schedules.d
     │   │   ├── app-casc
     │   │   │   └── controller_schedules_casc.yml
     │   │   ├── app-example
     │   │   │   └── controller_schedules_example.yml
     │   │   └── controller_schedules.yml
-    │   ├── aap_teams.d
+    │   ├── controller_teams.d
     │   │   ├── app-demo
-    │   │   │   ├── aap_teams_org1.yml
-    │   │   │   └── aap_teams_org2.yml
-    │   │   └── aap_teams.yml
+    │   │   │   ├── controller_teams_org1.yml
+    │   │   │   └── controller_teams_org2.yml
+    │   │   └── controller_teams.yml
+    │   ├── controller_users.d
+    │   │   ├── app-demo
+    │   │   │   ├── controller_user_accounts_org1.yml
+    │   │   │   └── controller_user_accounts_org2.yml
+    │   │   └── controller_user_accounts.yml
     │   └── controller_workflow_job_templates.d
     │       ├── app-casc
     │       │   └── controller_workflow_job_templates_casc.yml
@@ -198,11 +214,6 @@ orgs_vars/Organization1
     │   │   ├── app-example
     │   │   │   └── controller_instance_groups_otlc.yml
     │   │   └── controller_instance_groups.yml
-    │   ├── controller_users.d
-    │   │   ├── app-demo
-    │   │   │   ├── aap_user_accounts_org1.yml
-    │   │   │   └── aap_user_accounts_org2.yml
-    │   │   └── aap_user_accounts.yml
     │   ├── controller_inventory_sources.d
     │   │   ├── app-examples
     │   │   │   ├── controller_inventory_sources_sourcea_dev.yml
@@ -210,13 +221,13 @@ orgs_vars/Organization1
     │   │   │   ├── controller_inventory_sources_sourceb_dev.yml
     │   │   │   └── controller_inventory_sources_sourceb_prod.yml
     │   │   └── controller_inventory_sources.yml
-    │   └── controller_settings.d                               (2)
-    │       ├── app-examples                                    (2)
-    │       │   ├── controller_settings_jobs.yml                (2)
-    │       │   ├── controller_settings_ldap.yml                (2)
-    │       │   ├── controller_settings_system.yml              (2)
-    │       │   └── controller_settings_user_interface.yml      (2)
-    │       └── controller_settings.yml                         (2)
+    │   └── controller_settings.d                           (1)
+    │       ├── app-examples                                (1)
+    │       │   ├── controller_settings_jobs.yml            (1)
+    │       │   ├── controller_settings_ldap.yml            (1)
+    │       │   ├── controller_settings_system.yml          (1)
+    │       │   └── controller_settings_user_interface.yml  (1)
+    │       └── controller_settings.yml                     (1)
     └── demo-prd
         ├── controller_credentials.d
         │   ├── app-examples
@@ -246,11 +257,6 @@ orgs_vars/Organization1
         │   ├── app-example
         │   │   └── controller_instance_groups_otlc.yml
         │   └── controller_instance_groups.yml
-        ├── controller_users.d
-        │   ├── app-demo
-        │   │   ├── aap_user_accounts_org1.yml
-        │   │   └── aap_user_accounts_org2.yml
-        │   └── aap_user_accounts.yml
         ├── controller_inventory_sources.d
         │   ├── app-examples
         │   │   ├── controller_inventory_sources_sourcea_dev.yml
@@ -258,71 +264,43 @@ orgs_vars/Organization1
         │   │   ├── controller_inventory_sources_sourceb_dev.yml
         │   │   └── controller_inventory_sources_sourceb_prod.yml
         │   └── controller_inventory_sources.yml
-        └── controller_settings.d                               (2)
-            ├── app-examples                                    (2)
-            │   ├── controller_settings_jobs.yml                (2)
-            │   ├── controller_settings_ldap.yml                (2)
-            │   ├── controller_settings_system.yml              (2)
-            │   └── controller_settings_user_interface.yml      (2)
-            └── controller_settings.yml                         (2)
+        └── controller_settings.d                          (1)
+            ├── app-examples                               (1)
+            │   ├── controller_settings_jobs.yml           (1)
+            │   ├── controller_settings_ldap.yml           (1)
+            │   ├── controller_settings_system.yml         (1)
+            │   └── controller_settings_user_interface.yml (1)
+            └── controller_settings.yml                    (1)
 ```
+> **NOTE (1):** These directories and files must belong to SuperAdmin Organization ONLY, because must have admin super powers.
 
-> **NOTE (1):** These directory and files may belong to SuperAdmin Organization ONLY. If any other organization defines it's own `roles`, they must duplicate the ones given by the SuperAdmin Organization or they will be dropped.
->
-> **NOTE (2):** These directories and files must belong to SuperAdmin Organization ONLY, because must have admin super powers.
-
-## Role Tags
+Role Tags
+----------------
 
 The role is designed to be used with tags, each tags correspond to an AWX or Automation Controller object to be managed by ansible.
 
 ```bash
 [ansible@demo-ctr1-dev global]$  ansible-playbook config-controller-filetree.yml --list-tags
-  play #1 (localhost): localhost TAGS: []
+  play #1 (localhost): localhost	TAGS: []
       TASK TAGS: [always, applications, credential_input_sources, credential_types, credentials, execution_environments, groups, hosts, instance_groups, inventories, inventory_sources, job_templates, labels, notifications, notifications_templates, organizations, projects, roles, schedules, settings, teams, users, workflow_job_templates]
 ```
 
-## Example Playbook
+Example Playbook
+----------------
 
 ```yaml
 ---
-- hosts: all
+- hosts: localhost
   connection: local
   gather_facts: false
   vars:
     controller_configuration_projects_async_retries: 60
     controller_configuration_projects_async_delay: 2
-    aap_username: "{{ vault_aap_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
-    aap_password: "{{ vault_aap_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
-    aap_hostname: "{{ vault_aap_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
-    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
-
   pre_tasks:
-    - name: "Setup authentication (block)"
-      block:
-        - name: "Get the Authentication Token for the future requests"
-          ansible.builtin.uri:
-            url: "https://{{ aap_hostname }}/api/gateway/v1/tokens/"
-            user: "{{ aap_username }}"
-            password: "{{ aap_password }}"
-            method: POST
-            force_basic_auth: true
-            validate_certs: "{{ controller_validate_certs }}"
-            status_code: 201
-          register: authtoken_res
-
-        - name: "Set the oauth token to be used since now"
-          ansible.builtin.set_fact:
-            aap_oauthtoken: "{{ authtoken_res.json.token }}"
-            aap_oauthtoken_url: "{{ authtoken_res.json.url }}"
-          no_log: true
-      when: aap_oauthtoken is not defined
-      tags:
-        - always
-
     - block:
         - name: Include Tasks to load Galaxy credentials to be added to Organizations
           ansible.builtin.include_role:
-            name: infra.aap_configuration_extended.filetree_read
+            name: redhat_cop.controller_configuration.filetree_read
             tasks_from: "{{ create_orgs_credentials }}"
           loop:
             - organizations.yml
@@ -332,7 +310,7 @@ The role is designed to be used with tags, each tags correspond to an AWX or Aut
 
         - name: Include Tasks to add Galaxy credentials to Organizations
           ansible.builtin.include_role:
-            name: infra.aap_configuration_extended.dispatch
+            name: redhat_cop.controller_configuration.dispatch
             apply:
               tags:
                 - organizations
@@ -340,37 +318,29 @@ The role is designed to be used with tags, each tags correspond to an AWX or Aut
           vars:
             assign_galaxy_credentials_to_org: false
             controller_configuration_dispatcher_roles:
-              - {role: organizations, var: aap_organizations, tags: organizations}
+              - {role: organizations, var: controller_organizations, tags: organizations}
               - {role: credentials, var: controller_credentials, tags: credentials}
 
   roles:
-    - {role: infra.aap_configuration_extended.filetree_read }
-    - {role: infra.aap_configuration_extended.dispatch }
-
-  post_tasks:
-    - name: "Delete the Authentication Token used"
-      ansible.builtin.uri:
-        url: "https://{{ aap_hostname }}{{ aap_oauthtoken_url }}"
-        user: "{{ aap_username }}"
-        password: "{{ aap_password }}"
-        method: DELETE
-        force_basic_auth: true
-        validate_certs: "{{ controller_validate_certs }}"
-        status_code: 204
-      when: aap_oauthtoken_url is defined
+    - {role: redhat_cop.controller_configuration.filetree_read }
+    - {role: redhat_cop.controller_configuration.dispatch }
 ...
 
 ```
 
 ```bash
-ansible-playbook config-controller-filetree.yml --tags ${CONTROLLER_OBJECT} -e "{orgs: ${ORGANIZATION}, dir_orgs_vars: orgs_vars, env: ${ENVIRONMENT} }" --vault-password-file ./.vault_pass.txt -e @orgs_vars/env/${ENVIRONMENT}/configure_connection_controller_credentials.yml
+$ ansible-playbook config-controller-filetree.yml --tags ${CONTROLLER_OBJECT} -e "{orgs: ${ORGANIZATION}, dir_orgs_vars: orgs_vars, env: ${ENVIRONMENT} }" --vault-password-file ./.vault_pass.txt -e @orgs_vars/env/${ENVIRONMENT}/configure_connection_controller_credentials.yml
 
 ```
 
-## License
+License
+-------
 
 GPLv3+
 
-## Author Information
+Author Information
+------------------
 
-- [Silvio Perez](https://github.com/silvinux)
+- silvinux
+  - email: <silvio@redhat.com>
+  - github: https://github.com/silvinux
