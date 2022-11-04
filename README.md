@@ -155,6 +155,12 @@ Adding the ability to use direct output from the awx export command in the roles
 We welcome community contributions to this collection. If you find problems, please open an issue or create a PR against the [Controller Configuration collection repository](https://github.com/redhat-cop/controller_configuration).
 More information about contributing can be found in our [Contribution Guidelines.](https://github.com/redhat-cop/controller_configuration/blob/devel/.github/CONTRIBUTING.md)
 
+## Code of Conduct
+
+This collection follows the Ansible project's
+[Code of Conduct](https://docs.ansible.com/ansible/devel/community/code_of_conduct.html).
+Please read and familiarize yourself with this document.
+
 ## Licensing
 
 <!-- Include the appropriate license information here and a pointer to the full licensing details. If the collection contains modules migrated from the ansible/ansible repo, you must use the same license that existed in the ansible/ansible repo. See the GNU license example below. -->
