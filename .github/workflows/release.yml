@@ -9,10 +9,12 @@ on:
       - published
 
 jobs:
-  pre-commit:
-    uses: sean-m-sullivan/infra_git_ci_cd/.github/workflows/pre-commit.yml@main
-  sanity:
-    uses: sean-m-sullivan/infra_git_ci_cd/.github/workflows/sanity.yml@main
+  integration-test:
+    uses: "./.github/workflows/ci_workflow.yaml"
+  release:
+    needs:
+      - integration-test
+    uses: "redhat-cop/ansible_collections_tooling/.github/workflows/release_pipeline.yml@main"
     with:
       collection_namespace: redhat_cop
       collection_name: controller_configuration
