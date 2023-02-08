@@ -20,16 +20,5 @@ jobs:
       collection_name: controller_configuration
       collection_version: 1.0.0
       collection_repo: https://github.com/redhat-cop/controller_configuration/
-  all_green:
-    if: ${{ always() }}
-    needs:
-      - pre-commit
-      - sanity
-    runs-on: ubuntu-latest
-    steps:
-      - run: >-
-          python -c "assert set([
-          '${{ needs.pre-commit.result }}',
-          '${{ needs.sanity.result }}',
-          ]) == {'success'}"
+      collection_dependencies: awx.awx
 ...

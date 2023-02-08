@@ -8,13 +8,27 @@
     controller_password: "{{ vault_controller_password }}"
     controller_validate_certs: "{{ vault_controller_validate_certs }}"
   pre_tasks:
-    - name: "Check if the required input variables are present"
-      assert:
-        that:
-          - input_tag is defined
-          - (input_tag | type_debug) == 'list'
-        fail_msg: 'A variable called ''input_tag'' of type ''list'' is needed: -e ''{input_tag: [organizations, projects]}'''
-        quiet: true
+    - name: "Setup authentication (block)"
+      no_log: "{{ controller_configuration_filetree_create_secure_logging }}"
+      when: controller_oauthtoken is not defined
+      tags:
+        - always
+      block:
+        - name: "Get the Authentication Token for the future requests"
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: POST
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 201
+          register: authtoken_res
+
+        - name: "Set the oauth token to be used since now"
+          ansible.builtin.set_fact:
+            controller_oauthtoken: "{{ authtoken_res.json.token }}"
+            controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
 
     - name: "Check if the required input values are correct"
       assert:
@@ -26,5 +40,17 @@
       loop_control:
         loop_var: tag_item
   roles:
-    - redhat_cop.controller_configuration.filetree_create
+    - infra.controller_configuration.filetree_create
+
+  post_tasks:
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
 ...

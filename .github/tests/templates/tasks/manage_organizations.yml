@@ -19,12 +19,12 @@
     loop_var: org_names
 
 - name: Include organizations vars
-  include_vars: ../vars/controller_organizations.yml
+  ansible.builtin.include_vars: ../vars/controller_organizations.yml
   when:
     - org_exists is not defined
 
 - name: Include organizations vars
-  include_vars: ../vars/controller_organizations_with_hub.yml
+  ansible.builtin.include_vars: ../vars/controller_organizations_with_hub.yml
   when:
     - org_exists is defined
     - org_exists
