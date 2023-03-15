@@ -52,7 +52,19 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
       loop_control:
         loop_var: tag_item
   roles:
-    - redhat_cop.controller_configuration.filetree_create
+    - infra.controller_configuration.filetree_create
+
+  post_tasks:
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
 ...
 ```
 

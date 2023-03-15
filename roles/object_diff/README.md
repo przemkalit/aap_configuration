@@ -1,10 +1,10 @@
 # controller_configuration.object_diff
 
-An ansible role to manage the object diff of the AWX or Automation Controller configuration. This role leverage the controller_object_diff.py lookup plugin of the redhat_cop.controller_configuration, comparing two lists, one taken directly from the API and the other one from the git repository, and it could be used to delete objects in the AWX or Automation Controller that are not defined in the git repository list.
+An ansible role to manage the object diff of the AWX or Automation Controller configuration. This role leverage the controller_object_diff.py lookup plugin of the infra.controller_configuration, comparing two lists, one taken directly from the API and the other one from the git repository, and it could be used to delete objects in the AWX or Automation Controller that are not defined in the git repository list.
 
 ## Requirements
 
-`ansible-galaxy collection install -r tests/collections/requirements.yml` to be installed. Currently: `awx.awx` or `ansible.controller` and `redhat_cop.controller_configuration`.
+`ansible-galaxy collection install -r tests/collections/requirements.yml` to be installed. Currently: `awx.awx` or `ansible.controller` and `infra.controller_configuration`.
 
 ## Role Variables
 
@@ -44,9 +44,22 @@ To correctly manage `roles`, they can only be defined by a super-admin organizat
   connection: local
   gather_facts: false
   roles:
-    - role: redhat_cop.controller_configuration.filetree_read
-    - role: redhat_cop.controller_configuration.object_diff
-    - role: redhat_cop.controller_configuration.dispatch
+    - role: infra.controller_configuration.filetree_read
+    - role: infra.controller_configuration.object_diff
+      vars:
+        controller_configuration_object_diff_tasks:
+          - {name: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+          - {name: job_templates, var: controller_templates, tags: job_templates}
+          - {name: user_accounts, var: controller_user_accounts, tags: users}
+          - {name: groups, var: controller_groups, tags: groups}
+          - {name: hosts, var: controller_hosts, tags: hosts}
+          - {name: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+          - {name: inventories, var: controller_inventories, tags: inventories}
+          - {name: projects, var: controller_projects, tags: projects}
+          - {name: credentials, var: controller_credentials, tags: credentials}
+          - {name: credential_types, var: controller_credential_types, tags: credential_types}
+          - {name: organizations, var: controller_organizations, tags: organizations}
+    - role: infra.controller_configuration.dispatch
       vars:
         controller_configuration_dispatcher_roles:
           - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}

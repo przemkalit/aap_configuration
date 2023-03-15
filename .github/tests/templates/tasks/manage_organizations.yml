@@ -30,5 +30,8 @@
     - org_exists
 
 - include_role:
-    name: redhat_cop.controller_configuration.organizations
+    name: infra.controller_configuration.organizations
+  tags:
+    - orgs
+    - alltags
 ...

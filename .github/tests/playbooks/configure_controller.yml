@@ -38,11 +38,7 @@
     controller_validate_certs: false
   collections:
     - ansible.controller
-    - redhat_cop.controller_configuration
-  # Define following vars here, or in configs/controller_auth.yml
-  # controller_hostname: controller.example.com
-  # controller_username: admin
-  # controller_password: changeme
+    - infra.controller_configuration
   pre_tasks:
 
     - block:
