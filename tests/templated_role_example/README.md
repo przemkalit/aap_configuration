@@ -1,8 +1,8 @@
-# controller_configuration.users
+# controller_configuration.***********
 
 ## Description
 
-An Ansible Role to add users to on Ansible Controller.
+An Ansible Role to create******* on Ansible Controller.
 
 ## Requirements
 
@@ -24,19 +24,18 @@ Currently:
 |`controller_username`|""|no|Admin User on the Ansible Controller Server. Either username / password or oauthtoken need to be specified.||
 |`controller_password`|""|no|Controller Admin User's password on the Ansible Controller Server. This should be stored in an Ansible Vault at vars/controller-secrets.yml or elsewhere and called from a parent playbook. Either username / password or oauthtoken need to be specified.||
 |`controller_oauthtoken`|""|no|Controller Admin User's token on the Ansible Controller Server. This should be stored in an Ansible Vault at or elsewhere and called from a parent playbook. Either username / password or oauthtoken need to be specified.|||
-|`controller_user_accounts`|`see below`|yes|Data structure describing your user entries described below.||
-|`controller_user_default_password`|""|no|Global variable to set the password for all users.||
+|`controller_************`|`see below`|yes|Data structure describing your organization or organizations Described below.||
 
 ### Secure Logging Variables
 
 The following Variables compliment each other.
 If Both variables are not set, secure logging defaults to false.
-The role defaults to False as normally the add user task does not include sensitive information.
-`controller_configuration_user_secure_logging` defaults to the value of `controller_configuration_secure_logging` if it is not explicitly called. This allows for secure logging to be toggled for the entire suite of configuration roles with a single variable, or for the user to selectively use it.
+The role defaults to False as normally the add ******* task does not include sensitive information.
+controller_configuration_*******_secure_logging defaults to the value of controller_configuration_secure_logging if it is not explicitly called. This allows for secure logging to be toggled for the entire suite of controller configuration roles with a single variable, or for the user to selectively use it.
 
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
-|`controller_configuration_user_secure_logging`|`False`|no|Whether or not to include the sensitive user role tasks in the log. Set this value to `True` if you will be providing your sensitive values from elsewhere.|
+|`controller_configuration_*******_secure_logging`|`False`|no|Whether or not to include the sensitive ******* role tasks in the log. Set this value to `True` if you will be providing your sensitive values from elsewhere.|
 |`controller_configuration_secure_logging`|`False`|no|This variable enables secure logging as well, but is shared across multiple roles, see above.|
 
 ### Asynchronous Retry Variables
@@ -49,53 +48,37 @@ This also speeds up the overall role.
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
 |`controller_configuration_async_retries`|30|no|This variable sets the number of retries to attempt for the role globally.|
-|`controller_configuration_users_async_retries`|`{{ controller_configuration_async_retries }}`|no|This variable sets the number of retries to attempt for the role.|
+|`controller_configuration_*******_async_retries`|`{{ controller_configuration_async_retries }}`|no|This variable sets the number of retries to attempt for the role.|
 |`controller_configuration_async_delay`|1|no|This sets the delay between retries for the role globally.|
-|`controller_configuration_users_async_delay`|`controller_configuration_async_delay`|no|This sets the delay between retries for the role.|
+|`controller_configuration_*******_async_delay`|`controller_configuration_async_delay`|no|This sets the delay between retries for the role.|
 
 ## Data Structure
 
-### User Account Variables
+### ************ Variables
 
 |Variable Name|Default Value|Required|Type|Description|
 |:---:|:---:|:---:|:---:|:---:|
-|`username`|""|yes|str|The username of the user|
-|`new_username`|""|yes|str|Setting this option will change the existing username (looked up via the username field).|
-|`password`|"{{ controller_user_default_password }}"|no|str|The password of the user|
-|`email`|""|yes|str|The email of the user|
-|`first_name`|""|no|str|The first name of the user|
-|`last_name`|""|no|str|The last name of the user|
-|`is_superuser`|false|no|bool|Whether the user is a superuser|
-|`is_system_auditor`|false|no|bool|Whether the user is an auditor|
-|`organization`|""|no|str|The name of the organization the user belongs to.<br />Added in awx.awx >= 20.0.0 DOES NOT exist in ansible.controller yet.|
-|`state`|`present`|no|str|Desired state of the resource.|
-|`update_secrets`|true|no|bool| True will always change password if user specifies password, even if API gives $encrypted$ for password. False will only set the password if other values change too.|
+|`name`|""|yes|str|Name of Job Template|
+|`new_name`|""|str|no|Setting this option will change the existing name (looked up via the name field).|
+|`description`|`False`|no|str|Description to use for the job template.|
 
-### Standard user Data Structure
+|`state`|`present`|no|str|Desired state of the resource.|
+
+### Standard Project Data Structure
 
 #### Json Example
 
 ```json
 {
-  "controller_user_accounts": [
-    {
-      "user": "jsmith",
-      "is_superuser": false,
-      "password": "p4ssword",
-      "email": "jsmith@example.com"
-    }
-  ]
 }
+
 ```
 
 #### Yaml Example
 
 ```yaml
 ---
-controller_user_accounts:
-  - user: controller_user
-    is_superuser: false
-    password: controller_password
+
 ```
 
 ## Playbook Examples
@@ -113,18 +96,16 @@ controller_user_accounts:
   # controller_password: changeme
   pre_tasks:
     - name: Include vars from controller_configs directory
-      ansible.builtin.include_vars:
+      include_vars:
         dir: ./yaml
         ignore_files: [controller_config.yml.template]
         extensions: ["yml"]
   roles:
-    - {role: infra.controller_configuration.users, when: controller_user_accounts is defined}
+    - {role: redhat_cop.controller_configuration.license, when: controller_license is defined}
 ```
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/redhat-cop/controller_configuration#licensing)
 
 ## Author
-
-[Tom Page](https://github.com/Tompage1994)
