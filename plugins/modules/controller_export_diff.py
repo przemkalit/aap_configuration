@@ -8,7 +8,9 @@ from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
 
+
 ANSIBLE_METADATA = {"metadata_version": "1.1", "status": ["preview"], "supported_by": "community"}
+
 
 DOCUMENTATION = """
 ---
@@ -60,7 +62,7 @@ options:
       elements: str
     inventory_sources:
       description:
-        - inventory sources to export
+        - inventory soruces to export
       type: list
       elements: str
     inventory:
@@ -118,12 +120,14 @@ options:
       aliases: [ tower_host ]
     controller_username:
       description:
-      - Username to connect to your Automation Platform Controller instance.
+      - Username for your controller instance.
+      - If value not set, will try environment variable C(CONTROLLER_USERNAME) and then config files
       type: str
       aliases: [ tower_username ]
     controller_password:
       description:
-      - Password to connect to your Automation Platform Controller instance.
+      - Password for your controller instance.
+      - If value not set, will try environment variable C(CONTROLLER_PASSWORD) and then config files
       type: str
       aliases: [ tower_password ]
     controller_oauthtoken:
@@ -134,6 +138,7 @@ options:
       - A dictionary structure as returned by the token module.
       - If value not set, will try environment variable C(CONTROLLER_OAUTH_TOKEN) and then config files
       type: raw
+      version_added: "3.7.0"
       aliases: [ tower_oauthtoken ]
     validate_certs:
       description:
@@ -143,13 +148,6 @@ options:
       - If value not set, will try environment variable C(CONTROLLER_VERIFY_SSL) and then config files
       type: bool
       aliases: [ tower_verify_ssl ]
-    request_timeout:
-      description:
-      - Specify the timeout Ansible should use in requests to the controller host.
-      - Defaults to 10s, but this is handled by the shared module_utils code
-      - This option requires awx.awx>=22.7.0 or equivalent ansible.controller collection
-      type: float
-      version_added: "2.6.0"
     controller_config_file:
       description:
       - Path to the controller config file.
@@ -165,7 +163,7 @@ notes:
 
 EXAMPLES = """
 - name: Get differential on projects and orgs.
-  infra.aap_configuration_extended.controller_export_diff:
+  infra.controller_configuration.controller_export_diff:
     organizations: all
     projects: all
     compare_items:
@@ -188,15 +186,14 @@ EXAMPLES = """
           scm_url: https://github.com/ansible/ansible-examples.git
           description: ansible-examples
           organization:
-            name: Satellite
+              name: Satellite
           credential: gitlab-personal-access-token for satqe_auto_droid
           wait: false
     controller_host: https://controller
-    aap_username: admin
-    aap_password: secret123
+    controller_username: admin
+    controller_password: secret123
     validate_certs: false
   register: export_results
-...
 """
 
 import logging
