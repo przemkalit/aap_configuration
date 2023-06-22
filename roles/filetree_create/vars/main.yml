@@ -17,4 +17,8 @@ valid_tags:
   - teams
   - users
   - workflow_job_templates
+  - instance_groups
+  - applications
+  - labels
+  - schedules
 ...

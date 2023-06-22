@@ -21,7 +21,7 @@
     is_aap: "{{ lookup(controller_api_plugin, 'ping', host=controller_hostname, oauth_token=oauthtoken, verify_ssl=controller_validate_certs).version is version('4.0.0', '>=') }}"
 
 - name: Include tasks (block)
-  when: "['all', 'inventory', 'credentials', 'credential_types', 'notification_templates', 'users', 'teams', 'organizations', 'projects', 'execution_environments', 'job_templates', 'workflow_job_templates', 'workflow_job_template_nodes'] | intersect(input_tag) | length > 0"
+  when: "['all', 'labels', 'applications', 'instance_groups', 'settings', 'inventory', 'credentials', 'credential_types', 'notification_templates', 'users', 'teams', 'organizations', 'projects', 'execution_environments', 'job_templates', 'workflow_job_templates', 'workflow_job_template_nodes', 'schedules'] | intersect(input_tag) | length > 0"
   block:
     - name: "Export Inventories and related Groups and Hosts"
       ansible.builtin.include_tasks: "inventory.yml"
@@ -56,4 +56,19 @@
     - name: "Export Workflow Job Templates"
       ansible.builtin.include_tasks: "workflow_job_templates.yml"
       when: "'workflow_job_templates' in input_tag or 'all' in input_tag"
+    - name: "Export Settings"
+      ansible.builtin.include_tasks: "settings.yml"
+      when: "'settings' in input_tag or 'all' in input_tag"
+    - name: "Export Instance Groups"
+      ansible.builtin.include_tasks: "instance_groups.yml"
+      when: "'instance_groups' in input_tag or 'all' in input_tag"
+    - name: "Export Applications"
+      ansible.builtin.include_tasks: "applications.yml"
+      when: "'applications' in input_tag or 'all' in input_tag"
+    - name: "Export Labels"
+      ansible.builtin.include_tasks: "labels.yml"
+      when: "'labels' in input_tag or 'all' in input_tag"
+    - name: "Export Schedules"
+      ansible.builtin.include_tasks: "schedules.yml"
+      when: "'schedules' in input_tag or 'all' in input_tag"
 ...
