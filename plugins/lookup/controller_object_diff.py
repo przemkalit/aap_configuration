@@ -94,7 +94,7 @@ EXAMPLES = """
 
 - name: "Find the difference of Project between what is on the Controller versus curated list."
   set_fact:
-    project_difference: "{{ lookup('infra.controller_configuration.controller_object_diff',
+    project_difference: "{{ query('infra.controller_configuration.controller_object_diff',
       api_list=controller_api_results, compare_list=differential_item.differential_test_items,
       with_present=true, set_absent=true ) }}"
 
@@ -131,6 +131,15 @@ class LookupModule(LookupBase):
 
     def warn_callback(self, warning):
         self.display.warning(warning)
+
+    def create_present_list(self, compare_list):
+        if not compare_list and not isinstance(compare_list, list):
+            return [compare_list]
+
+        for item in compare_list:
+            item.update({"state": "present"})
+
+        return compare_list
 
     def run(self, terms, variables=None, **kwargs):
         self.set_options(direct=kwargs)
@@ -312,8 +321,7 @@ class LookupModule(LookupBase):
                 item.update({"state": "absent"})
         # Combine Lists
         if self.get_option("with_present"):
-            for item in compare_list_reduced:
-                item.update({"state": "present"})
+            compare_list = self.create_present_list(compare_list)
             compare_list.extend(difference)
             # Return Compare list with difference attached
             difference = compare_list
@@ -326,4 +334,4 @@ class LookupModule(LookupBase):
             for item in difference_to_remove:
                 difference.remove(item)
 
-        return [difference]
+        return difference
