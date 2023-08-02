@@ -67,6 +67,9 @@ jobs:
       - name: set the awx password in the inventory
         run: ls awx/tools/docker-compose/_sources/secrets
 
+      - name: Move ansible.cfg to root
+        run: mv .github/files/ansible.cfg .
+
       - name: Display Versions
         run: which python && pip --version && ansible --version
 
