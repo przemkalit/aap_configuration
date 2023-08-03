@@ -40,6 +40,7 @@
         controller_configuration_dispatcher_roles:
           - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
           - {role: job_templates, var: controller_templates, tags: job_templates}
+          - {role: roles, var: controller_roles, tags: roles}
           - {role: teams, var: controller_teams, tags: teams}
           - {role: users, var: controller_user_accounts, tags: users}
           - {role: groups, var: controller_groups, tags: inventories}
@@ -50,4 +51,18 @@
           - {role: credentials, var: controller_credentials, tags: credentials}
           - {role: credential_types, var: controller_credential_types, tags: credential_types}
           - {role: organizations, var: controller_organizations, tags: organizations}
+
+  post_tasks:
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
+      tags:
+        - always
 ...

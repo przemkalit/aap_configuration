@@ -1,14 +1,18 @@
 ---
 - name: "OBJECT DIFF: Get the current controller user to determine if it is super-admin"
   ansible.builtin.set_fact:
-    __controller_api_current_user_check_is_admin: "{{ lookup(controller_api_plugin, 'users',
-                                                              query_params={'username': controller_username},
-                                                              host=controller_hostname, oauth_token=oauthtoken, verify_ssl=false)
+    __controller_api_current_user_check_is_admin: "{{ lookup(controller_api_plugin, 'me',
+                                                             host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs)
                                                    }}"
+  no_log: "{{ controller_configuration_object_diff_secure_logging }}"
+  tags:
+    - always
 
 - name: "Role differences (block)"
   when:
     - __controller_api_current_user_check_is_admin.is_superuser
+  tags:
+    - always
   block:
 
     - name: "OBJECT DIFF: Get the API list of all roles"
@@ -52,8 +56,8 @@
     - name: "OBJECT DIFF: Find the difference of Roles between what is on the Controller versus CasC on SCM"
       ansible.builtin.set_fact:
         __roles_difference: "{{ query(controller_role_plugin,
-                                        api_list=__full_controller_api_roles, compare_list=controller_roles,
-                                        with_present=false, set_absent=true)
+                                      api_list=__full_controller_api_roles, compare_list=controller_roles,
+                                      with_present=include_present_state, set_absent=true) | flatten
                              }}"
 
     - name: "OBJECT DIFF: Sets differences between Roles what is on the Controller versus CasC on SCM"
