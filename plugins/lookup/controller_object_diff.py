@@ -147,6 +147,11 @@ class LookupModule(LookupBase):
             new_item.pop(dupitem)
         return new_item
 
+    def equal_dicts(self, d1, d2, ignore_keys):
+        d1_filtered = {k: v for k, v in d1.items() if k not in ignore_keys}
+        d2_filtered = {k: v for k, v in d2.items() if k not in ignore_keys}
+        return d1_filtered == d2_filtered
+
     def run(self, terms, variables=None, **kwargs):
         self.set_options(direct=kwargs)
 
@@ -249,7 +254,9 @@ class LookupModule(LookupBase):
             for item in api_list_reduced:
                 if item["resource_type"] == "organization":
                     item.update({"organizations": [item[item["resource_type"]]]})
-                item.update({"role": item["name"].lower()})
+                if item["resource_type"] == "instance_group":
+                    item.update({"instance_groups": [item[item["resource_type"]]]})
+                item.update({"role": item["name"].lower().replace(" ", "_")})
                 # Remove the extra fields
                 item.pop("users")
                 item.pop("teams")
@@ -257,6 +264,8 @@ class LookupModule(LookupBase):
                 item.pop("resource_type")
                 if "organization" in item:
                     item.pop("organization")
+                if "instance_group" in item:
+                    item.pop("instance_group")
                 if "type" in item:
                     item.pop("type")
             list_to_extend = []
@@ -337,13 +346,20 @@ class LookupModule(LookupBase):
         else:
             difference = []
             for item in api_list_reduced:
-                if item not in compare_list_reduced:
+                for compare_item in compare_list_reduced:
+                    if self.equal_dicts(compare_item, item, "state"):
+                        break
+                else:
                     difference.append(item)
 
         # Set
         if self.get_option("set_absent"):
             for item in difference:
                 item.update({"state": "absent"})
+                if "team" in item and item["role"] == "member":
+                    item.update({"target_team": item["team"]})
+                    item.pop("team")
+
         # Combine Lists
         if self.get_option("with_present"):
             for item in compare_list_reduced:
