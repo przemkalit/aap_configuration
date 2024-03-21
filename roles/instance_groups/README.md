@@ -122,7 +122,7 @@ controller_instance_groups:
 
 ## License
 
-[MIT](LICENSE)
+[GPL-3.0](https://github.com/redhat-cop/controller_configuration#licensing)
 
 ## Author
 

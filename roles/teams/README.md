@@ -103,7 +103,7 @@ This also speeds up the overall role.
 
 ## License
 
-[MIT](License)
+[GPL-3.0](https://github.com/redhat-cop/controller_configuration#licensing)
 
 ## Author
 
