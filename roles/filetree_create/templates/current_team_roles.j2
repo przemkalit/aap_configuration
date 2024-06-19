@@ -1,6 +1,6 @@
 {% if first_team_role | default(true) | bool %}
 ---
-controller_roles:
+controller_team_roles:
 {% endif %}
 {% for role in team_roles_lookvar %}
 {% if role.summary_fields.resource_type is defined %}

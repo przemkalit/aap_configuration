@@ -1,7 +1,7 @@
 ---
 - name: "Get list of files inside {{ filetree_controller_templates }}"
   ansible.builtin.find:
-    paths: "{{ filetree_controller_templates }}"
+    paths: "{{ filetree_controller_job_templates }}"
     file_type: file
     recurse: true
   register: __list_files_controller_templates
@@ -17,16 +17,16 @@
 
 - name: "Populate Job Templates list"
   ansible.builtin.set_fact:
-    __populate_controller_job_templates: "{{ (__populate_controller_job_templates | default([])) + __populate_job_templates_list_item.ansible_facts.controller_templates }}"
+    __populate_controller_job_templates: "{{ (__populate_controller_job_templates | default([])) + __populate_job_templates_list_item.ansible_facts.controller_job_templates }}"
   loop: "{{ __contents_filetree_controller_templates.results }}"
   loop_control:
     loop_var: __populate_job_templates_list_item
   no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
-  when: __contents_filetree_controller_templates.results is defined and __populate_job_templates_list_item.ansible_facts.controller_templates is defined
+  when: __contents_filetree_controller_templates.results is defined and __populate_job_templates_list_item.ansible_facts.controller_job_templates is defined
 
 - name: "Set Job Templates Data Structure"
   ansible.builtin.set_fact:
-    controller_templates: "{{ __populate_controller_job_templates }}"
+    controller_job_templates: "{{ __populate_controller_job_templates }}"
   no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
   when: __populate_controller_job_templates is defined
 ...

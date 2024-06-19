@@ -17,7 +17,7 @@
 
 - name: "Populate Workflow Job Templates list"
   ansible.builtin.set_fact:
-    __populate_controller_workflow_job_templates: "{{ (__populate_controller_workflow_job_templates | default([])) + __populate_credentials_list_item.ansible_facts.controller_workflows }}"
+    __populate_controller_workflow_job_templates: "{{ (__populate_controller_workflow_job_templates | default([])) + __populate_credentials_list_item.ansible_facts.controller_workflow_job_templates }}"
   loop: "{{ __contents_filetree_controller_workflow_job_templates.results }}"
   loop_control:
     loop_var: __populate_credentials_list_item
@@ -26,7 +26,7 @@
 
 - name: "Set Job Templates Data Structure"
   ansible.builtin.set_fact:
-    controller_workflows: "{{ __populate_controller_workflow_job_templates }}"
+    controller_workflow_job_teampltes: "{{ __populate_controller_workflow_job_templates }}"
   no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
   when: __populate_controller_workflow_job_templates is defined
 ...

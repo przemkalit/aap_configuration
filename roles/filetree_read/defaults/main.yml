@@ -47,7 +47,7 @@ filetree_controller_inventory_sources: "{{ dir_orgs_vars }}/{{ orgs }}/env/{{ en
 filetree_controller_instance_groups: "{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_instance_groups.d/"
 filetree_controller_hosts: "{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_hosts.d/"
 filetree_controller_groups: "{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_groups.d/"
-filetree_controller_templates: "{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/"
+filetree_controller_job_templates: "{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/"
 filetree_controller_workflow_job_templates: "{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_workflow_job_templates.d/"
 filetree_controller_schedules: "{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_schedules.d/"
 filetree_controller_roles: "{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/"
@@ -71,8 +71,8 @@ controller_configuration_filetree_read_tasks:
   - {name: instance_groups, var: controller_instance_groups, tags: instance_groups}
   - {name: hosts, var: controller_hosts, tags: hosts}
   - {name: groups, var: controller_groups, tags: inventories}
-  - {name: job_templates, var: controller_templates, tags: job_templates}
-  - {name: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+  - {name: job_templates, var: controller_job_templates, tags: job_templates}
+  - {name: workflow_job_templates, var: controller_workflow_job_templates, tags: workflow_job_templates}
   - {name: schedules, var: controller_schedules, tags: schedules}
   - {name: roles, var: controller_roles, tags: roles}
 ...

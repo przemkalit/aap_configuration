@@ -1,6 +1,6 @@
 {% if (current_workflow_job_template_index | default(0)) == 0 %}
 ---
-controller_workflows:
+controller_workflow_job_templates:
 {% endif %}
   - name: "{{ current_workflow_job_templates_asset_value.name }}"
     description: "{{ current_workflow_job_templates_asset_value.description }}"

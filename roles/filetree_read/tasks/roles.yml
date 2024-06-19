@@ -15,14 +15,23 @@
   register: __contents_filetree_controller_roles
   failed_when: "'VARIABLE IS NOT DEFINED' in __contents_filetree_controller_roles"
 
-- name: "Populate Roles list"
+- name: "Populate Roles list with team roles"
   ansible.builtin.set_fact:
-    __populate_controller_roles: "{{ (__populate_controller_roles | default([])) + __populate_roles_list_item.ansible_facts.controller_roles }}"
+    __populate_controller_roles: "{{ (__populate_controller_roles | default([])) + __populate_roles_list_item.ansible_facts.controller_team_roles }}"
   loop: "{{ __contents_filetree_controller_roles.results }}"
   loop_control:
     loop_var: __populate_roles_list_item
   no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
-  when: __contents_filetree_controller_roles.results is defined and __populate_roles_list_item.ansible_facts.controller_roles is defined
+  when: __contents_filetree_controller_roles.results is defined and __populate_roles_list_item.ansible_facts.controller_team_roles is defined
+
+- name: "Populate Roles list with user roles"
+  ansible.builtin.set_fact:
+    __populate_controller_roles: "{{ (__populate_controller_roles | default([])) + __populate_roles_list_item.ansible_facts.controller_user_roles }}"
+  loop: "{{ __contents_filetree_controller_roles.results }}"
+  loop_control:
+    loop_var: __populate_roles_list_item
+  no_log: "{{ controller_configuration_filetree_read_secure_logging }}"
+  when: __contents_filetree_controller_roles.results is defined and __populate_roles_list_item.ansible_facts.controller_user_roles is defined
 
 - name: "Set Roles Data Structure"
   ansible.builtin.set_fact:
