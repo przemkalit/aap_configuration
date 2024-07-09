@@ -199,6 +199,7 @@ EXAMPLES = """
     controller_password: secret123
     validate_certs: false
   register: export_results
+...
 """
 
 import logging

@@ -103,6 +103,7 @@ EXAMPLES = """
     name: infra.controller_configuration.projects
   vars:
     controller_projects: "{{ project_difference }}"
+...
 """
 
 RETURN = """
