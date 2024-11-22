@@ -6,19 +6,35 @@
   connection: local
   gather_facts: true
   vars:
+<<<<<<< HEAD
     controller_hostname: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
     controller_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
     controller_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
     controller_validate_certs: "{{ lookup('ansible.builtin.env', 'CONTROLLER_VERIFY_SSL') | default(false) }}"
+=======
+    # Using the Tower env names for backwards compatibility
+    aap_hostname: "{{ lookup('ansible.builtin.env', 'TOWER_HOST') }}"
+    aap_username: "{{ lookup('ansible.builtin.env', 'TOWER_USERNAME') }}"
+    aap_password: "{{ lookup('ansible.builtin.env', 'TOWER_PASSWORD') }}"
+    aap_validate_certs: "{{ lookup('ansible.builtin.env', 'TOWER_VERIFY_SSL') | default(false) }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
   tasks:
     - name: Get number of JT
       ansible.builtin.uri:
+<<<<<<< HEAD
         url: "https://{{ controller_hostname }}/api/v2/metrics/?format=json"
         method: GET
         force_basic_auth: true
         user: "{{ controller_username }}"
         password: "{{ controller_password }}"
+=======
+        url: https://{{ aap_hostname }}/api/v2/metrics/?format=json
+        method: GET
+        force_basic_auth: true
+        user: "{{ aap_username }}"
+        password: "{{ aap_password }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
         return_content: true
         headers:
           Content-Type: application/json
@@ -38,11 +54,19 @@
 
     - name: Get users info
       ansible.builtin.uri:
+<<<<<<< HEAD
         url: "https://{{ controller_hostname }}/api/v2/users/?format=json"
         method: GET
         force_basic_auth: true
         user: "{{ controller_username }}"
         password: "{{ controller_password }}"
+=======
+        url: https://{{ aap_hostname }}/api/v2/users/?format=json
+        method: GET
+        force_basic_auth: true
+        user: "{{ aap_username }}"
+        password: "{{ aap_password }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
         return_content: true
         headers:
           Content-Type: application/json
@@ -81,11 +105,19 @@
 
     - name: Get subscription info
       ansible.builtin.uri:
+<<<<<<< HEAD
         url: "https://{{ controller_hostname }}/api/v2/settings/all/?format=json"
         method: GET
         force_basic_auth: true
         user: "{{ controller_username }}"
         password: "{{ controller_password }}"
+=======
+        url: https://{{ aap_hostname }}/api/v2/settings/all/?format=json
+        method: GET
+        force_basic_auth: true
+        user: "{{ aap_username }}"
+        password: "{{ aap_password }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
         return_content: true
         headers:
           Content-Type: application/json

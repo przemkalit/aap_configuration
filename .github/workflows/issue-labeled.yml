@@ -12,7 +12,11 @@ jobs:
     steps:
       - name: Create comment
         uses: actions-cool/issues-helper@v3
+<<<<<<< HEAD
         if: github.event.label.name == 'inactive' || github.event.label.name == 'need info'
+=======
+        if: github.event.label.name == 'inactive'  # || github.event.label.name == 'need info'
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
         with:
           actions: 'create-comment'
           token: ${{ secrets.GITHUB_TOKEN }}

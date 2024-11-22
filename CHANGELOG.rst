@@ -1,9 +1,105 @@
+<<<<<<< HEAD
 ============================================
 infra.controller_configuration Release Notes
 ============================================
 
 .. contents:: Topics
 
+=======
+======================================
+infra.aap\_configuration Release Notes
+======================================
+
+.. contents:: Topics
+
+v3.1.0
+======
+
+Major Changes
+-------------
+
+- renamed some more vars that got missed in the new naming convention.
+
+Bugfixes
+--------
+
+- updated gateway services async and no log vars to correct naming convention.
+
+v3.0.0
+======
+
+Release Summary
+---------------
+
+| Release Date: 2024-10-31
+| The collection has been updated for AAP 2.5 use and has only been tested against AAP 2.5, it has been updated to include the previously separated hub, eda, and gateway collection roles.
+| `Conversion Guide <https://github.com/redhat-cop/infra.aap_configuration/blob/devel/CONVERSION_GUIDE.md>`__
+
+Major Changes
+-------------
+
+- Introduction of roles for gateway
+- Rename of collection to infra.aap_configuration
+- Roles from infra.ah_configuration and infra.eda_configuration have migrated into this collection
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Major overhaul to all code completed, variables have changed, role names have changed, please see the Conversion guide for more details.
+
+Removed Features (previously deprecated)
+----------------------------------------
+
+- ee_namespace role has been removed, this was removed in AAP 2.4, and was depreciated then.
+
+Bugfixes
+--------
+
+- Controller credentials role now includes request timeout option.
+- meta_dependency_check set to default to false. This is due to feature not working on controller, or in offline environments without a hub. Set controller_dependency_check to 'true' to re-enable feature.
+
+v2.11.0
+=======
+
+Minor Changes
+-------------
+
+- Add ability to disable dependency check
+
+Bugfixes
+--------
+
+- Fixed issue with loops that were getting always empty list of objects
+
+v2.10.3
+=======
+
+Minor Changes
+-------------
+
+- Added meta role to perform dependency checks. No changes needed from a user perspective.
+- filetree_create able export proper approval role
+- filetree_create able export proper approval role (user roles)
+- filetree_create able to bulk export role for objects
+- filetree_create able to create files without id values
+- filetree_create able to export project with update_project state
+- filetree_create able to export scm_refspec of project
+- filetree_create able to export single worfklow with related job_templates and projects
+- filetree_create able to filter by schedule_id
+- filetree_create able to remove $encrypted$ while exporting job template and workflow
+- filetree_create able to use defined organization for organizationless objects
+- filetree_create is missing double quote
+- filetree_read speed tuning
+- fix memory leak when there are plenty of job templates
+- fix project export while exporting related objects to job template
+
+Bugfixes
+--------
+
+- Fix "approval" role permission name in object diff.
+- Fixed missing execution environemnt while exporting the project
+- filetree_create export extra_vars with escaping any variable brackets
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 v2.9.0
 ======

@@ -1,13 +1,25 @@
+<<<<<<< HEAD
 # Refer to https://github.com/redhat-cop/controller_configuration/tree/devel/roles/users
+=======
+# Refer to https://github.com/redhat-cop/aap_configuration/tree/devel/roles/users
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 # for documentation and additional parameter information
 
 ---
 controller_user_accounts:
+<<<<<<< HEAD
   - username:
     password:
     email:
     first_name:
     last_name:
+=======
+  - username: ""
+    password: ""
+    email: ""
+    first_name: ""
+    last_name: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     is_superuser: false
     state: "{{ absent_present }}"
 ...

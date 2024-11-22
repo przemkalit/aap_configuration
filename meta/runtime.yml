@@ -1,3 +1,7 @@
 ---
+<<<<<<< HEAD
 requires_ansible: '>=2.15.0'
+=======
+requires_ansible: ">=2.15.0"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

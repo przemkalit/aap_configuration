@@ -2,4 +2,7 @@
 roles/filetree_create @silvinux @ivarmu @adonisgarciac
 roles/filetree_read @silvinux @ivarmu @adonisgarciac
 roles/object_diff @silvinux @ivarmu @adonisgarciac
+<<<<<<< HEAD
 roles/offline_sync @djdanielsson
+=======
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574

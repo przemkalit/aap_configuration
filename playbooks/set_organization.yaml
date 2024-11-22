@@ -1,21 +1,37 @@
 ---
+<<<<<<< HEAD
 - name: "Play to set given organization to every object found in the search path"
+=======
+- name: Play to set given organization to every object found in the search path
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
   hosts: localhost
   connection: local
   gather_facts: false
   tasks:
+<<<<<<< HEAD
     - name: "Get all the files from the specified path"
+=======
+    - name: Get all the files from the specified path
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       ansible.builtin.find:
         paths: "{{ path }}"
         file_type: file
         recurse: true
       register: __list_files
 
+<<<<<<< HEAD
     - name: "Update the organization into the found files"
       ansible.builtin.replace:
         path: "{{ __file.path }}"
         regexp: '^(.*)organization: (.*)$'
         replace: '\1organization: {{ new_organization }}'
+=======
+    - name: Update the organization into the found files
+      ansible.builtin.replace:
+        path: "{{ __file.path }}"
+        regexp: "^(.*)organization: (.*)$"
+        replace: "\\1organization: {{ new_organization }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       loop: "{{ __list_files.files }}"
       loop_control:
         loop_var: __file

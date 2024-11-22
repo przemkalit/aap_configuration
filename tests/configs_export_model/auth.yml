@@ -1,7 +1,14 @@
 # User may add controller auth creds to this file and encrypt it using `ansible-vault`
 ---
+<<<<<<< HEAD
 # controller_hostname: ansible-tower-web-svc-test-project.example.com
 controller_username: admin
 controller_password: password
 controller_validate_certs: false
+=======
+# aap_hostname: ansible-tower-web-svc-test-project.example.com
+aap_username: admin
+aap_password: password
+aap_validate_certs: false
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

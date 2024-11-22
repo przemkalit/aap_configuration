@@ -3,12 +3,20 @@ controller_configuration_projects_async_retries: 60
 controller_configuration_projects_async_delay: 2
 projects:
   - name: Tower Config Testing
+<<<<<<< HEAD
     description: ''
+=======
+    description: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     local_path: _48__controller_config_testing
     scm_type: git
     scm_url: https://github.com/ansible/tower-example.git
     scm_branch: master
+<<<<<<< HEAD
     scm_refspec: ''
+=======
+    scm_refspec: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     scm_clean: false
     scm_delete_on_update: false
     timeout: 0
@@ -40,12 +48,20 @@ projects:
           name: irc-satqe-chat-notification
           type: notification_template
   - name: Tower Config
+<<<<<<< HEAD
     description: ''
+=======
+    description: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     local_path: _52__controller_config
     scm_type: git
     scm_url: https://github.com/ansible/tower-example.git
     scm_branch: master
+<<<<<<< HEAD
     scm_refspec: ''
+=======
+    scm_refspec: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     scm_clean: false
     scm_delete_on_update: false
     timeout: 0

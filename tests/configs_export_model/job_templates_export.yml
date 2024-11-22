@@ -1,6 +1,7 @@
 ---
 job_templates:
   - name: No Survey Template no vars
+<<<<<<< HEAD
     description: ''
     job_type: run
     playbook: helloworld.yml
@@ -16,6 +17,23 @@ job_templates:
     timeout: 0
     use_fact_cache: false
     host_config_key: ''
+=======
+    description: ""
+    job_type: run
+    playbook: helloworld.yml
+    scm_branch: ""
+    forks: 0
+    limit: ""
+    verbosity: 0
+    extra_vars: '{"empty_var": "nothing"}'
+    job_tags: ""
+    force_handlers: false
+    skip_tags: ""
+    start_at_task: ""
+    timeout: 0
+    use_fact_cache: false
+    host_config_key: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     ask_scm_branch_on_launch: false
     ask_diff_mode_on_launch: false
     ask_variables_on_launch: false
@@ -30,9 +48,15 @@ job_templates:
     become_enabled: false
     diff_mode: false
     allow_simultaneous: false
+<<<<<<< HEAD
     custom_virtualenv: null
     job_slice_count: 1
     webhook_service: ''
+=======
+    custom_virtualenv:
+    job_slice_count: 1
+    webhook_service: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     inventory:
       organization:
         name: Satellite
@@ -48,7 +72,11 @@ job_templates:
     related:
       labels: []
       credentials:
+<<<<<<< HEAD
         - organization: null
+=======
+        - organization:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           name: Demo Credential
           credential_type:
             name: Machine
@@ -72,6 +100,7 @@ job_templates:
       name: No Survey Template no vars
       type: job_template
   - name: Survey Template with vars no org
+<<<<<<< HEAD
     description: ''
     job_type: run
     playbook: helloworld.yml
@@ -87,6 +116,23 @@ job_templates:
     timeout: 0
     use_fact_cache: false
     host_config_key: ''
+=======
+    description: ""
+    job_type: run
+    playbook: helloworld.yml
+    scm_branch: ""
+    forks: 0
+    limit: ""
+    verbosity: 0
+    extra_vars: '{"example_a": "127.0.0.1", "example_b": "text"}'
+    job_tags: ""
+    force_handlers: false
+    skip_tags: ""
+    start_at_task: ""
+    timeout: 0
+    use_fact_cache: false
+    host_config_key: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     ask_scm_branch_on_launch: false
     ask_diff_mode_on_launch: false
     ask_variables_on_launch: false
@@ -101,9 +147,15 @@ job_templates:
     become_enabled: false
     diff_mode: false
     allow_simultaneous: false
+<<<<<<< HEAD
     custom_virtualenv: null
     job_slice_count: 1
     webhook_service: ''
+=======
+    custom_virtualenv:
+    job_slice_count: 1
+    webhook_service: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     inventory:
       organization:
         name: Satellite
@@ -123,7 +175,11 @@ job_templates:
             name: Default
             type: organization
       credentials:
+<<<<<<< HEAD
         - organization: null
+=======
+        - organization:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           name: Demo Credential
           credential_type:
             name: Machine
@@ -145,17 +201,28 @@ job_templates:
         spec:
           - question_description: Name
             min: 0
+<<<<<<< HEAD
             default: ''
             max: 128
             required: true
             choices: ''
+=======
+            default: ""
+            max: 128
+            required: true
+            choices: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
             new_question: true
             variable: basic_name
             question_name: Basic Name
             type: text
           - question_description: Choosing yes or no.
             min: 0
+<<<<<<< HEAD
             default: 'yes'
+=======
+            default: true
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
             max: 0
             required: true
             choices: |-
@@ -165,9 +232,15 @@ job_templates:
             variable: option_true_false
             question_name: Choose yes or no?
             type: multiplechoice
+<<<<<<< HEAD
           - question_description: ''
             min: 0
             default: ''
+=======
+          - question_description: ""
+            min: 0
+            default: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
             max: 0
             required: true
             choices: |-
@@ -176,7 +249,11 @@ job_templates:
               group3
             new_question: true
             variable: target_groups
+<<<<<<< HEAD
             question_name: 'Select Group:'
+=======
+            question_name: "Select Group:"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
             type: multiselect
     natural_key:
       organization:
@@ -185,6 +262,7 @@ job_templates:
       name: Survey Template with vars no org
       type: job_template
   - name: workflow_test_template
+<<<<<<< HEAD
     description: ''
     job_type: run
     playbook: helloworld.yml
@@ -200,6 +278,23 @@ job_templates:
     timeout: 0
     use_fact_cache: false
     host_config_key: ''
+=======
+    description: ""
+    job_type: run
+    playbook: helloworld.yml
+    scm_branch: ""
+    forks: 0
+    limit: ""
+    verbosity: 0
+    extra_vars: '{"empty_var": "nothing"}'
+    job_tags: ""
+    force_handlers: false
+    skip_tags: ""
+    start_at_task: ""
+    timeout: 0
+    use_fact_cache: false
+    host_config_key: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     ask_scm_branch_on_launch: false
     ask_diff_mode_on_launch: true
     ask_variables_on_launch: false
@@ -214,9 +309,15 @@ job_templates:
     become_enabled: false
     diff_mode: false
     allow_simultaneous: false
+<<<<<<< HEAD
     custom_virtualenv: null
     job_slice_count: 1
     webhook_service: ''
+=======
+    custom_virtualenv:
+    job_slice_count: 1
+    webhook_service: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     inventory:
       organization:
         name: Satellite
@@ -232,7 +333,11 @@ job_templates:
     related:
       labels: []
       credentials:
+<<<<<<< HEAD
         - organization: null
+=======
+        - organization:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           name: Demo Credential
           credential_type:
             name: Machine

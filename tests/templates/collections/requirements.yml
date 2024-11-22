@@ -1,6 +1,12 @@
 ---
 collections:
   - name: awx.awx
+<<<<<<< HEAD
   - name: ansible.controller
   - name: infra.controller_configuration
+=======
+  - name: ansible.tower
+  - name: ansible.controller
+  - name: infra.aap_configuration
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

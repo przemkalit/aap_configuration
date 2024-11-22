@@ -6,6 +6,7 @@ contact_links:
     url: https://matrix.to/#/#aap_config_as_code:ansible.com
     about: Matrix room for questions. (or go to the forums)
   - name: Feature requests
+<<<<<<< HEAD
     url: https://github.com/redhat-cop/controller_configuration/discussions/categories/ideas
     about: Suggest an idea for this project
   - name: Discussions
@@ -14,6 +15,10 @@ contact_links:
   - name: Matrix room
     url: https://matrix.to/#/#aap_config_as_code:ansible.com
     about: Matrix room for questions and discussion.
+=======
+    url: https://forum.ansible.com/tag/infra-config-as-code
+    about: Any kind of questions or ideas should go on the forum.
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
   - name: Ansible Code of Conduct
     url: https://docs.ansible.com/ansible/latest/community/code_of_conduct.html
     about: Be nice to other members of the community. Behave.

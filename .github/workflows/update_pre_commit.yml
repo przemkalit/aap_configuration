@@ -3,15 +3,27 @@
 # See .pre-commit-config.yaml for what hooks are executed
 name: Update pre-commit configuration
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 on:
   schedule:
     - cron: "0 5 * * *"
 
 jobs:
   pre-commit:
+<<<<<<< HEAD
     uses: "sean-m-sullivan/ansible_collections_tooling/.github/workflows/update_precommit.yml@main"
     with:
       github_actor: ${{ github.actor }}
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+=======
+    uses: "redhat-cop/ansible_collections_tooling/.github/workflows/update_precommit.yml@main"
+    with:
+      github_actor: ${{ github.actor }}
+    secrets:
+      token: ${{ secrets.GH_WORKFLOW_KEY }}
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

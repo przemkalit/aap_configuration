@@ -4,6 +4,7 @@
   connection: local
   vars:
     workflow_job_templates_secure_logging: false
+<<<<<<< HEAD
     controller_validate_certs: false
   collections:
     - awx.awx
@@ -17,15 +18,34 @@
     - name: "Determine collection (block)"
       block:
         - name: "Check if the collection ansible.controller is installed"
+=======
+    aap_validate_certs: false
+  collections:
+    - awx.awx
+    - infra.aap_configuration
+  # Define following vars here, or in configs/controller_auth.yml
+  # aap_hostname: controller.example.com
+  # aap_username: admin
+  # aap_password: changeme
+  pre_tasks:
+    - name: Determine collection (block)
+      block:
+        - name: Check if the collection ansible.controller is installed
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           ansible.builtin.set_fact:
             ansible_controller_collection_installed: "{{ lookup('ansible.builtin.pipe', 'ansible-galaxy collection list | grep -i ansible.controller || echo NOTINSTALLED') }}"
           failed_when: ansible_controller_collection_installed is match('NOTINSTALLED')
       rescue:
+<<<<<<< HEAD
         - name: "Check if the collection awx.awx is installed"
+=======
+        - name: Check if the collection awx.awx is installed
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           ansible.builtin.set_fact:
             awx_awx_collection_installed: "{{ lookup('ansible.builtin.pipe', 'ansible-galaxy collection list | grep -i awx.awx || echo NOTINSTALLED') }}"
           failed_when: awx_awx_collection_installed is match('NOTINSTALLED')
       always:
+<<<<<<< HEAD
         - name: "Set the collection providing the controller_api lookup plugin"
           ansible.builtin.set_fact:
             controller_api_plugin: "{{ ('ansible.controller.controller_api' if ansible_controller_collection_installed is defined) | default('awx.awx.controller_api' if awx_awx_collection_installed is defined) | default('NONE') }}"
@@ -34,6 +54,17 @@
             msg: "One of the following collections is required to be installed: 'ansible.controller' or 'awx.awx'."
           when: controller_api_plugin is match('NONE')
         - name: "Show the plugin we are using"
+=======
+        - name: Set the collection providing the controller_api lookup plugin
+          ansible.builtin.set_fact:
+            controller_api_plugin: "{{ ('ansible.controller.controller_api' if ansible_controller_collection_installed is defined) | default('awx.awx.controller_api'
+              if awx_awx_collection_installed is defined) | default('NONE') }}"
+        - name: Fail if no collection is detected
+          ansible.builtin.fail:
+            msg: "One of the following collections is required to be installed: 'ansible.controller' or 'awx.awx'."
+          when: controller_api_plugin is match('NONE')
+        - name: Show the plugin we are using
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           ansible.builtin.debug:
             msg: "Using the 'controller_api' plugin from: {{ controller_api_plugin }}"
 
@@ -41,6 +72,7 @@
       ansible.builtin.include_vars:
         dir: ./configs_export_model
         ignore_files: [README.md]
+<<<<<<< HEAD
         extensions: ["yml"]
 
     - name: Wait for the controller to be up
@@ -48,12 +80,22 @@
         url: "https://{{ controller_hostname }}/api/v2/mesh_visualizer/"
         user: "{{ controller_username }}"
         password: "{{ controller_password }}"
+=======
+        extensions: [yml]
+
+    - name: Wait for the controller to be up
+      ansible.builtin.uri:
+        url: https://{{ aap_hostname }}/api/v2/mesh_visualizer/
+        user: "{{ aap_username }}"
+        password: "{{ aap_password }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
         method: GET
         validate_certs: false
         force_basic_auth: true
         status_code: 200
         body_format: json
       register: mesh_data
+<<<<<<< HEAD
       until: mesh_data.json.nodes[0].enabled
       retries: 120
       delay: 5
@@ -112,4 +154,23 @@
       ansible.builtin.assert:
         that:
           - differential_expected ==  export_results.difference
+=======
+      until: mesh_data.json is defined
+      retries: 120
+      delay: 5
+
+  roles:
+    - { role: gateway_organizations, when: organizations is defined, tags: organizations }
+    - { role: gateway_users, when: users is defined, tags: users }
+    - { role: gateway_teams, when: teams is defined, tags: teams }
+    - { role: controller_credential_types, when: credential_types is defined, tags: credential_types }
+    - { role: controller_credentials, when: credentials is defined, tags: credentials }
+    - { role: controller_inventories, when: inventory is defined, tags: inventories }
+    - { role: controller_inventory_sources, when: inventory_sources is defined, tags: inventory_sources }
+    - { role: controller_projects, when: projects is defined, tags: projects }
+    - { role: controller_project_update, when: projects is defined, tags: projects }
+    - { role: controller_job_templates, when: job_templates is defined, tags: job_templates }
+    - { role: controller_workflow_job_templates, when: workflow_job_templates is defined, tags: workflow_job_templates }
+    - { role: controller_notification_templates, when: notification_templates is defined, tags: notification_templates }
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

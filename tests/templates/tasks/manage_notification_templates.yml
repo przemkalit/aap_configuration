@@ -6,7 +6,11 @@
     - alltags
 
 - import_role:
+<<<<<<< HEAD
     name: infra.controller_configuration.notification_templates
+=======
+    name: infra.aap_configuration.notification_templates
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
   tags:
     - notifications
     - alltags

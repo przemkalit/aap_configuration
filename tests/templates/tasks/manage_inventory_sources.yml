@@ -6,7 +6,11 @@
     - alltags
 
 - include_role:
+<<<<<<< HEAD
     name: infra.controller_configuration.inventory_sources
+=======
+    name: infra.aap_configuration.inventory_sources
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
   tags:
     - inventorysources
     - alltags

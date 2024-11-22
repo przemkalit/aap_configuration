@@ -2,6 +2,10 @@
     "httpHeaders": [
       {
         "urls": ["https://github.com/", "https://guides.github.com/", "https://help.github.com/", "https://docs.github.com/"],
+<<<<<<< HEAD
+=======
+        "retryOn429": true
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
         "headers": {
           "Accept-Encoding": "zstd, br, gzip, deflate"
         }

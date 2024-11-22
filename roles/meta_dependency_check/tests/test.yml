@@ -3,5 +3,8 @@
   hosts: localhost
   roles:
     - meta_dependency_check
+<<<<<<< HEAD
 
+=======
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

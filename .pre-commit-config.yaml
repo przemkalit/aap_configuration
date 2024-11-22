@@ -1,10 +1,15 @@
 ---
 repos:
+<<<<<<< HEAD
   - repo: 'https://github.com/pre-commit/pre-commit-hooks'
+=======
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     rev: v5.0.0
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
+<<<<<<< HEAD
   # Disabling the separate yamllint as it can now be done by ansible-lint with our config moved to TLD.
   # - repo: 'https://github.com/adrienverge/yamllint.git'
   #   rev: v1.26.3
@@ -14,6 +19,9 @@ repos:
   #       types:
   #         - yaml
   - repo: 'https://github.com/ansible-community/ansible-lint.git'
+=======
+  - repo: https://github.com/ansible-community/ansible-lint.git
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     rev: v24.9.2
     hooks:
       # see discussions here about what arguments are used, and behavior
@@ -23,6 +31,7 @@ repos:
       - id: ansible-lint
         pass_filenames: false
         always_run: true
+<<<<<<< HEAD
         entry: "ansible-lint"
         args:
           - "--profile=production"
@@ -31,6 +40,16 @@ repos:
           - "yamllint>=1.26,<2.0"
   - repo: https://github.com/DavidAnson/markdownlint-cli2
     rev: v0.14.0
+=======
+        entry: ansible-lint
+        args:
+          - --profile=production
+        additional_dependencies:
+          - ansible-core>=2.15
+          - yamllint>=1.26,<2.0
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.15.0
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     hooks:
       - id: markdownlint-cli2
   - repo: https://github.com/ambv/black
@@ -42,7 +61,11 @@ repos:
         args: [--config=.black.cfg, --check, --diff]
         types: [python]
   - repo: https://github.com/pycqa/flake8
+<<<<<<< HEAD
     rev: 6.0.0
+=======
+    rev: 7.1.1
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     hooks:
       - id: flake8
         name: flake8

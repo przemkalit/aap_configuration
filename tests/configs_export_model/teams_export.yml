@@ -1,7 +1,11 @@
 ---
 teams:
   - name: team1
+<<<<<<< HEAD
     description: ''
+=======
+    description: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     organization:
       name: Satellite
       type: organization

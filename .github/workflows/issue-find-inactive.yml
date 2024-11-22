@@ -17,5 +17,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           inactive-day: 30
           issue-state: open
+<<<<<<< HEAD
           exclude-labels: 'backlog, help wanted'
+=======
+          exclude-labels: 'new,enhancement,backlog,help wanted,module-issue,blocked - upstream'
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

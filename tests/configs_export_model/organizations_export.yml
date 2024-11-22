@@ -3,7 +3,11 @@ organizations:
   - name: Satellite
     description: Satellite
     max_hosts: 0
+<<<<<<< HEAD
     custom_virtualenv: null
+=======
+    custom_virtualenv:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     related:
       notification_templates_started: []
       notification_templates_success: []
@@ -16,7 +20,11 @@ organizations:
     default_environment:
       name: My EE
       type: execution_environment
+<<<<<<< HEAD
     custom_virtualenv: null
+=======
+    custom_virtualenv:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     related:
       notification_templates_started: []
       notification_templates_success: []

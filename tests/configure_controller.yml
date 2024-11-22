@@ -3,6 +3,7 @@
   hosts: localhost
   connection: local
   vars:
+<<<<<<< HEAD
     controller_validate_certs: false
     controller_configuration_secure_logging: false
   # Define following vars here, or in configs/controller_auth.yml
@@ -18,15 +19,36 @@
     - name: "Determine collection (block)"
       block:
         - name: "Check if the collection ansible.controller is installed"
+=======
+    aap_validate_certs: false
+    controller_configuration_secure_logging: false
+  # Define following vars here, or in configs/controller_auth.yml
+  # aap_hostname: controller.example.com
+  # aap_username: admin
+  # aap_password: changeme
+  collections:
+    - awx.awx
+    - infra.aap_configuration
+
+  pre_tasks:
+    - name: Determine collection (block)
+      block:
+        - name: Check if the collection ansible.controller is installed
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           ansible.builtin.set_fact:
             ansible_controller_collection_installed: "{{ lookup('ansible.builtin.pipe', 'ansible-galaxy collection list | grep -i ansible.controller || echo NOTINSTALLED') }}"
           failed_when: ansible_controller_collection_installed is match('NOTINSTALLED')
       rescue:
+<<<<<<< HEAD
         - name: "Check if the collection awx.awx is installed"
+=======
+        - name: Check if the collection awx.awx is installed
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           ansible.builtin.set_fact:
             awx_awx_collection_installed: "{{ lookup('ansible.builtin.pipe', 'ansible-galaxy collection list | grep -i awx.awx || echo NOTINSTALLED') }}"
           failed_when: awx_awx_collection_installed is match('NOTINSTALLED')
       always:
+<<<<<<< HEAD
         - name: "Set the collection providing the controller_api lookup plugin"
           ansible.builtin.set_fact:
             controller_api_plugin: "{{ ('ansible.controller.controller_api' if ansible_controller_collection_installed is defined) | default('awx.awx.controller_api' if awx_awx_collection_installed is defined) | default('NONE') }}"
@@ -35,6 +57,17 @@
             msg: "One of the following collections is required to be installed: 'ansible.controller' or 'awx.awx'."
           when: controller_api_plugin is match('NONE')
         - name: "Show the plugin we are using"
+=======
+        - name: Set the collection providing the controller_api lookup plugin
+          ansible.builtin.set_fact:
+            controller_api_plugin: "{{ ('ansible.controller.controller_api' if ansible_controller_collection_installed is defined) | default('awx.awx.controller_api'
+              if awx_awx_collection_installed is defined) | default('NONE') }}"
+        - name: Fail if no collection is detected
+          ansible.builtin.fail:
+            msg: "One of the following collections is required to be installed: 'ansible.controller' or 'awx.awx'."
+          when: controller_api_plugin is match('NONE')
+        - name: Show the plugin we are using
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
           ansible.builtin.debug:
             msg: "Using the 'controller_api' plugin from: {{ controller_api_plugin }}"
 
@@ -42,15 +75,25 @@
       ansible.builtin.include_vars:
         dir: ./configs
         ignore_files: [controller_config.yml.template]
+<<<<<<< HEAD
         extensions: ["yml"]
+=======
+        extensions: [yml]
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       tags:
         - always
 
     - name: Wait for Controller to come up
       ansible.builtin.uri:
+<<<<<<< HEAD
         url: "https://{{ controller_hostname }}/api/v2/ping/"
         status_code: 200
         validate_certs: "{{ controller_validate_certs }}"
+=======
+        url: https://{{ aap_hostname }}/api/v2/ping/
+        status_code: 200
+        validate_certs: "{{ aap_validate_certs }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       register: result
       until: result.status == 200
       retries: 10
@@ -59,9 +102,15 @@
 
     - name: Wait for the controller node to be up
       ansible.builtin.uri:
+<<<<<<< HEAD
         url: "https://{{ controller_hostname }}/api/v2/mesh_visualizer/"
         user: "{{ controller_username }}"
         password: "{{ controller_password }}"
+=======
+        url: https://{{ aap_hostname }}/api/v2/mesh_visualizer/
+        user: "{{ aap_username }}"
+        password: "{{ aap_password }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
         method: GET
         validate_certs: false
         force_basic_auth: true
@@ -71,9 +120,14 @@
       until: mesh_data.json is defined
       retries: 80
       delay: 5
+<<<<<<< HEAD
       ignore_errors: true
 
     - name: "Show result of mesh_visualizer"
+=======
+
+    - name: Show result of mesh_visualizer
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       ansible.builtin.debug:
         var: mesh_data
 
@@ -83,6 +137,7 @@
       delegate_to: localhost
 
   roles:
+<<<<<<< HEAD
     - {role: settings, when: controller_settings is defined, tags: settings}
     - {role: organizations, when: controller_organizations is defined, tags: organizations}
     - {role: labels, when: controller_labels is defined, tags: labels}
@@ -109,6 +164,11 @@
 
   tasks:
 
+=======
+    - dispatch # The dispatch role calls all of the other roles.
+
+  tasks:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     - name: Validate error handling
       block:
         - name: Add Invalid Job Templates to Controller
@@ -122,10 +182,17 @@
             that:
               - job_templates_errors is defined
               - job_templates_errors | length > 0
+<<<<<<< HEAD
             fail_msg: "No errors found, validate test example"
             success_msg: "Errors found, proceeding"
           vars:
             job_templates_errors: __job_templates_errors_set_stats.ansible_stats.data.job_templates_errors
+=======
+            fail_msg: No errors found, validate test example
+            success_msg: Errors found, proceeding
+          vars:
+            job_templates_errors: "{{ __job_templates_errors_set_stats.ansible_stats.data.job_templates_errors }}"
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
     - name: Add Controller Settings Individually
       ansible.builtin.include_role:
@@ -139,7 +206,11 @@
       when: controller_ad_hoc_commands is defined
 
     - name: Cancel Ad hoc commands
+<<<<<<< HEAD
       ansible.builtin.include_tasks: "./tasks/ad_hoc_cancel.yml"
+=======
+      ansible.builtin.include_tasks: ./tasks/ad_hoc_cancel.yml
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       when: controller_ad_hoc_commands is defined
 
     - name: Launch Controller Bulk Hosts
@@ -205,6 +276,7 @@
         job_id: "{{ launched_controller_workflows.results[0].id }}"
         job_type: workflow_jobs
         timeout: 180
+<<<<<<< HEAD
         controller_username:     "{{ controller_username }}"
         controller_password:     "{{ controller_password }}"
         controller_host:         "{{ controller_hostname }}"
@@ -243,4 +315,11 @@
       loop: "{{ differential_items }}"
       loop_control:
         loop_var: differential_item
+=======
+        aap_username: "{{ aap_username }}"
+        aap_password: "{{ aap_password }}"
+        controller_host: "{{ aap_hostname }}"
+        validate_certs: "{{ aap_validate_certs }}"
+      ignore_errors: true # noqa ignore-errors
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

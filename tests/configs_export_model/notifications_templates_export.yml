@@ -4,13 +4,18 @@ notification_templates:
     description: Send out emails for tower jobs
     notification_type: email
     notification_configuration:
+<<<<<<< HEAD
       username: ''
+=======
+      username: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       sender: tower0@example.com
       recipients:
         - admin@example.com
       use_tls: false
       host: smtp.example.com
       use_ssl: false
+<<<<<<< HEAD
       password: ''
       port: 25
       timeout: 30
@@ -19,6 +24,16 @@ notification_templates:
       success: null
       error: null
       workflow_approval: null
+=======
+      password: ""
+      port: 25
+      timeout: 30
+    messages:
+      started:
+      success:
+      error:
+      workflow_approval:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     organization:
       name: Satellite
       type: organization
@@ -28,17 +43,30 @@ notification_templates:
     notification_configuration:
       use_tls: false
       use_ssl: false
+<<<<<<< HEAD
       password: ''
+=======
+      password: ""
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
       port: 6667
       server: irc.freenode.com
       nickname: Ansible-Tower-Stage-Bot-01
       targets:
+<<<<<<< HEAD
         - '#my-channel'
     messages:
       started: null
       success: null
       error: null
       workflow_approval: null
+=======
+        - "#my-channel"
+    messages:
+      started:
+      success:
+      error:
+      workflow_approval:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     organization:
       name: Satellite
       type: organization

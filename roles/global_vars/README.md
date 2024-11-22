@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # controller_configuration.global_vars
+=======
+# infra.aap_configuration.global_vars
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 ## Description
 
@@ -38,7 +42,11 @@ operation_translate:
 
 ## License
 
+<<<<<<< HEAD
 [GPL-3.0](https://github.com/redhat-cop/controller_configuration#licensing)
+=======
+[GPL-3.0](https://github.com/redhat-cop/aap_configuration#licensing)
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 ## Author
 

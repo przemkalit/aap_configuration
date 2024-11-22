@@ -29,11 +29,19 @@ If you feel like getting your hands dirty, feel free to make the change yourself
 1. Fork the repo on Github, and then clone it locally.
 2. Create a branch named appropriately for the change you are going to make.
 3. Make your code change.
+<<<<<<< HEAD
 4. If you are creating a new role, please add a test for it in our [testing playbook.](https://github.com/redhat-cop/controller_configuration/blob/devel/tests/configure_controller.yml) by adding a new role entry and adding the appropriate yaml file with test data in the controller_configs directory.
 5. Add a changelog fragment in `changelogs/fragments` as per <https://docs.ansible.com/ansible/latest/community/development_process.html#changelogs>
 6. Push your code change up to your forked repo.
 7. Open a Pull Request to merge your changes to this repo. The comment box will be filled in automatically via a template.
 8. All Pull Requests will be subject to Ansible and Yaml Linting checks. Please make sure that your code complies and fix any warnings that arise. These are Checks that apear at the bottom of your Pull Request.
+=======
+4. If you are creating a new role, please add a test for it in our [testing playbook.](https://github.com/redhat-cop/aap_configuration/blob/devel/tests/configure_controller.yml) by adding a new role entry and adding the appropriate yaml file with test data in the aap_configs directory.
+5. Add a changelog fragment in `changelogs/fragments` as per <https://docs.ansible.com/ansible/latest/community/development_process.html#changelogs>
+6. Push your code change up to your forked repo.
+7. Open a Pull Request to merge your changes to this repo. The comment box will be filled in automatically via a template.
+8. All Pull Requests will be subject to Ansible and Yaml Linting checks. Please make sure that your code complies and fix any warnings that arise. These are Checks that appear at the bottom of your Pull Request.
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 9. All Pull requests are subject to Testing against being used in controller. As above there is a check at the bottom of your pull request for this named integration.
 
 See [Using Pull Requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) got more information on how to use GitHub PRs.

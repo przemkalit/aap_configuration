@@ -1,9 +1,18 @@
 # Red Hat Communties of Practice Controller Configuration Collection Conversion Guide
 
+<<<<<<< HEAD
 # REQUIREMENTS
 The AWX.AWX OR ANSIBLE.TOWER collections MUST be installed in order for this collection to work. It is recomended they be invoked in the playbook in the following way.
 
 ## Using this collection
+=======
+## REQUIREMENTS
+
+The AWX.AWX OR ANSIBLE.CONTROLLER collections MUST be installed in order for this collection to work. It is recommended they be invoked in the playbook in the following way.
+
+## Using this collection
+
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 The awx.awx or ansible.controller collection must be invoked in the playbook in order for ansible to pick up the correct modules to use.
 
 Otherwise it will look for the modules only in your base installation. If there are errors complaining about "couldn't resolve module/action" this is the most likely cause.
@@ -13,6 +22,7 @@ Otherwise it will look for the modules only in your base installation. If there 
   hosts: localhost
   connection: local
   vars:
+<<<<<<< HEAD
     controller_validate_certs: false
   collections:
     - awx.awx
@@ -23,6 +33,20 @@ Otherwise it will look for the modules only in your base installation. If there 
 
 ### Major Variable names changed
 The Following Variables need to be changed:
+=======
+    aap_validate_certs: false
+  collections:
+    - awx.awx
+    - infra.aap_configuration
+```
+
+## Variable name changes
+
+### Major Variable names changed
+
+The Following Variables need to be changed:
+
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 |Tower Variable Name|Controller Variable Name|
 |:---:|:---:|
 |`tower_ad_hoc_commands`|`controller_ad_hoc_commands`|
@@ -54,6 +78,7 @@ The Following Variables need to be changed:
 |`tower_workflow_launch_jobs`|`controller_workflow_launch_jobs`|
 
 ### Authentication Credentials
+<<<<<<< HEAD
 |Tower Variable Name|Controller Variable Name|
 |:---:|:---:|
 |`tower_username`|`controller_username`|
@@ -62,14 +87,35 @@ The Following Variables need to be changed:
 |`tower_hostname`|`controller_hostname`|
 |`tower_config_file`|`controller_config_file`|
 |`tower_validate_certs`|`controller_validate_certs`|
+=======
+
+|Tower Variable Name|Controller Variable Name|
+|:---:|:---:|
+|`tower_username`|`aap_username`|
+|`tower_password`|`aap_password`|
+|`tower_oauthtoken`|`controller_oauthtoken`|
+|`tower_hostname`|`aap_hostname`|
+|`tower_config_file`|`controller_config_file`|
+|`tower_validate_certs`|`aap_validate_certs`|
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 ### Specific Changes in Roles
 
 ### Projects
+<<<<<<< HEAD
 |Tower Variable Name|Controller Variable Name|Reason|
 |:---:|:---:|:---:|
 |`default_environment`|`custom_virtualenv`|`enviroments now refer to Execution Enviroments`|
 
 ## Notes
+=======
+
+|Tower Variable Name|Controller Variable Name|Reason|
+|:---:|:---:|:---:|
+|`default_environment`|`custom_virtualenv`|`environments now refer to Execution Environments`|
+
+## Notes
+
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 Making these changes should be all the ones you need to make in order to use the updated collection.
 However there have been many changes and this list is in no way final or all encompassing.

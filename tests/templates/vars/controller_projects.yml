@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Refer to https://github.com/redhat-cop/controller_configuration/tree/devel/roles/projects
+=======
+# Refer to https://github.com/redhat-cop/aap_configuration/tree/devel/roles/projects
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 # for documentation and additional parameter information
 
 ---

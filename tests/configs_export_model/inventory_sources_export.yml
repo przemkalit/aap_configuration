@@ -1,6 +1,7 @@
 ---
 inventory_sources:
   - name: test
+<<<<<<< HEAD
     description: ''
     source: scm
     source_path: /test.yml
@@ -10,11 +11,25 @@ inventory_sources:
     overwrite: false
     overwrite_vars: false
     custom_virtualenv: null
+=======
+    description: ""
+    source: scm
+    source_path: /test.yml
+    source_regions: ""
+    instance_filters: ""
+    group_by: ""
+    overwrite: false
+    overwrite_vars: false
+    custom_virtualenv:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     timeout: 0
     verbosity: 1
     update_on_launch: false
     update_cache_timeout: 0
+<<<<<<< HEAD
     update_on_project_update: false
+=======
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     inventory:
       organization:
         name: Default

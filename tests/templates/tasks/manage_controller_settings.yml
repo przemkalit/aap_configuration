@@ -6,7 +6,11 @@
     - alltags
 
 - import_role:
+<<<<<<< HEAD
     name: infra.controller_configuration.settings
+=======
+    name: infra.aap_configuration.settings
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
   tags:
     - settings
     - alltags
@@ -18,7 +22,11 @@
     - alltags
 
 - import_role:
+<<<<<<< HEAD
     name: infra.controller_configuration.settings
+=======
+    name: infra.aap_configuration.settings
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
   tags:
     - settings
     - alltags

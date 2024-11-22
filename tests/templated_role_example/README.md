@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # controller_configuration.***********
+=======
+# infra.aap_configuration.***********
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 ## Description
 
@@ -19,10 +23,17 @@ Currently:
 |Variable Name|Default Value|Required|Description|Example|
 |:---|:---:|:---:|:---|:---|
 |`controller_state`|"present"|no|The state all objects will take unless overridden by object default|'absent'|
+<<<<<<< HEAD
 |`controller_hostname`|""|yes|URL to the Ansible Controller Server.|127.0.0.1|
 |`controller_validate_certs`|`True`|no|Whether or not to validate the Ansible Controller Server's SSL certificate.||
 |`controller_username`|""|no|Admin User on the Ansible Controller Server. Either username / password or oauthtoken need to be specified.||
 |`controller_password`|""|no|Controller Admin User's password on the Ansible Controller Server. This should be stored in an Ansible Vault at vars/controller-secrets.yml or elsewhere and called from a parent playbook. Either username / password or oauthtoken need to be specified.||
+=======
+|`aap_hostname`|""|yes|URL to the Ansible Controller Server.|127.0.0.1|
+|`aap_validate_certs`|`true`|no|Whether or not to validate the Ansible Controller Server's SSL certificate.||
+|`aap_username`|""|no|Admin User on the Ansible Controller Server. Either username / password or oauthtoken need to be specified.||
+|`aap_password`|""|no|Controller Admin User's password on the Ansible Controller Server. This should be stored in an Ansible Vault at vars/controller-secrets.yml or elsewhere and called from a parent playbook. Either username / password or oauthtoken need to be specified.||
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 |`controller_oauthtoken`|""|no|Controller Admin User's token on the Ansible Controller Server. This should be stored in an Ansible Vault at or elsewhere and called from a parent playbook. Either username / password or oauthtoken need to be specified.||
 |`controller_************`|`see below`|yes|Data structure describing your organization or organizations Described below.||
 
@@ -30,13 +41,22 @@ Currently:
 
 The following Variables compliment each other.
 If Both variables are not set, secure logging defaults to false.
+<<<<<<< HEAD
 The role defaults to False as normally the add ******* task does not include sensitive information.
+=======
+The role defaults to false as normally the add ******* task does not include sensitive information.
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 controller_configuration_*******_secure_logging defaults to the value of controller_configuration_secure_logging if it is not explicitly called. This allows for secure logging to be toggled for the entire suite of controller configuration roles with a single variable, or for the user to selectively use it.
 
 |Variable Name|Default Value|Required|Description|
 |:---:|:---:|:---:|:---:|
+<<<<<<< HEAD
 |`controller_configuration_*******_secure_logging`|`False`|no|Whether or not to include the sensitive ******* role tasks in the log. Set this value to `True` if you will be providing your sensitive values from elsewhere.|
 |`controller_configuration_secure_logging`|`False`|no|This variable enables secure logging as well, but is shared across multiple roles, see above.|
+=======
+|`controller_configuration_*******_secure_logging`|`false`|no|Whether or not to include the sensitive ******* role tasks in the log. Set this value to `true` if you will be providing your sensitive values from elsewhere.|
+|`controller_configuration_secure_logging`|`false`|no|This variable enables secure logging as well, but is shared across multiple roles, see above.|
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 ### Asynchronous Retry Variables
 
@@ -63,7 +83,11 @@ This also speeds up the overall role.
 |:---:|:---:|:---:|:---:|:---:|
 |`name`|""|yes|str|Name of Job Template|
 |`new_name`|""|str|no|Setting this option will change the existing name (looked up via the name field).|
+<<<<<<< HEAD
 |`description`|`False`|no|str|Description to use for the job template.|
+=======
+|`description`|`false`|no|str|Description to use for the job template.|
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 |`state`|`present`|no|str|Desired state of the resource.|
 
@@ -94,9 +118,15 @@ This also speeds up the overall role.
   hosts: localhost
   connection: local
   # Define following vars here, or in controller_configs/controller_auth.yml
+<<<<<<< HEAD
   # controller_hostname: ansible-controller-web-svc-test-project.example.com
   # controller_username: admin
   # controller_password: changeme
+=======
+  # aap_hostname: ansible-controller-web-svc-test-project.example.com
+  # aap_username: admin
+  # aap_password: changeme
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
   pre_tasks:
     - name: Include vars from controller_configs directory
       include_vars:
@@ -104,11 +134,19 @@ This also speeds up the overall role.
         ignore_files: [controller_config.yml.template]
         extensions: ["yml"]
   roles:
+<<<<<<< HEAD
     - {role: redhat_cop.controller_configuration.license, when: controller_license is defined}
+=======
+    - {role: infra.aap_configuration.license, when: controller_license is defined}
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ```
 
 ## License
 
+<<<<<<< HEAD
 [GPL-3.0](https://github.com/redhat-cop/controller_configuration#licensing)
+=======
+[GPL-3.0](https://github.com/redhat-cop/aap_configuration#licensing)
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
 ## Author

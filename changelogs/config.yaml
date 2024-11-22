@@ -28,7 +28,11 @@ sections:
   - Bugfixes
 - - known_issues
   - Known Issues
+<<<<<<< HEAD
 title: infra.controller_configuration
+=======
+title: infra.aap_configuration
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 trivial_section_name: trivial
 use_fqcn: true
 ...

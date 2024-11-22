@@ -4,10 +4,17 @@
   connection: local
   gather_facts: false
   vars:
+<<<<<<< HEAD
     controller_validate_certs: false
     controller_hostname: controller.example.com
     controller_username: admin
     controller_password: changeme
+=======
+    aap_validate_certs: false
+    aap_hostname: controller.example.com
+    aap_username: admin
+    aap_password: changeme
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 
   collections:
     - awx.awx

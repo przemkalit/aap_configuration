@@ -1,5 +1,6 @@
 ---
 namespace: infra
+<<<<<<< HEAD
 name: controller_configuration
 version: 2.7.1-devel
 description: A collection of roles to manage Ansible Controller
@@ -28,4 +29,33 @@ tags:
     - controller_configuration
     - automation_platform
     - infrastructure
+=======
+name: aap_configuration
+version: 3.1.0-devel
+description: A collection of roles to manage Ansible Controller
+readme: README.md
+authors:
+  - Andrew Huffman
+  - Adebisi Oyawale @aoyawale
+  - Kedar Kulkarni @kedark3
+  - Tom Page @Tompage1994
+  - Sean Sullivan @sean-m-sullivan
+  - David Danielsson @djdanielsson
+repository: https://github.com/redhat-cop/aap_configuration/
+issues: https://github.com/redhat-cop/aap_configuration/issues
+build_ignore:
+  - galaxy.yml.j2
+  - release.yml
+  - .github
+  - "*.tar.gz"
+  - tests/*
+license:
+  - GPL-3.0-or-later
+tags:
+  - controller
+  - collection
+  - controller_configuration
+  - automation_platform
+  - infrastructure
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 ...

@@ -1,9 +1,15 @@
 ---
 inventory:
   - name: 2nd Testing Inventory
+<<<<<<< HEAD
     description: ''
     kind: ''
     host_filter: null
+=======
+    description: ""
+    kind: ""
+    host_filter:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     organization:
       name: Satellite
       type: organization
@@ -14,9 +20,15 @@ inventory:
       name: 2nd Testing Inventory
       type: inventory
   - name: Testing Inventory
+<<<<<<< HEAD
     description: ''
     kind: ''
     host_filter: null
+=======
+    description: ""
+    kind: ""
+    host_filter:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     organization:
       name: Satellite
       type: organization
@@ -28,8 +40,13 @@ inventory:
       type: inventory
   - name: satlab-admin-inventory
     description: Load inventory from satlab-admin hosts file
+<<<<<<< HEAD
     kind: ''
     host_filter: null
+=======
+    kind: ""
+    host_filter:
+>>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     organization:
       name: Default
       type: organization
