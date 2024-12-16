@@ -58,13 +58,8 @@
     error_flag: true
   when: ansible_check_mode and __workflows_job_async.failed is defined and __workflows_job_async.failed
 
-- name: Managing Workflows | Wait for finish the workflow management
-  ansible.builtin.async_status:
-    jid: "{{ __workflows_job_async_results_item.ansible_job_id }}"
-  register: __workflows_job_async_result
-  until: __workflows_job_async_result.finished
-  retries: "{{ controller_configuration_workflow_async_retries }}"
-  delay: "{{ controller_configuration_workflow_async_delay }}"
+- name: "Managing Workflows | Wait for finish the workflow management"
+  ansible.builtin.include_tasks: workflow_async.yaml
   loop: "{{ __workflows_job_async.results }}"
   loop_control:
     loop_var: __workflows_job_async_results_item
@@ -73,7 +68,7 @@
   no_log: "{{ workflow_job_templates_secure_logging }}"
   vars:
     __operation: "{{ operation_translate[__workflows_job_async_results_item.__workflow_loop_item.state | default(platform_state) | default('present')] }}"
-    ansible_async_dir: "{{ aap_configuration_async_dir }}"
+    ansible_async_dir: '{{ aap_configuration_async_dir }}'
 
 # Create links between workflow node
 - name: Loop over nodes in schema to add to workflow templates

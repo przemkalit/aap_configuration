@@ -1,5 +1,15 @@
 ---
 # Creating Workflow Node
+- name: Set nodes to empty list if WF does not have nodes
+  when: (__workflow_loop_item.simplified_workflow_nodes is defined ) and ( __workflow_loop_item.simplified_workflow_nodes  | type_debug != "list" )
+  ansible.builtin.set_fact:
+    simplified_nodes: []
+
+- name: Set nodes if WF does have nodes
+  when: (__workflow_loop_item.simplified_workflow_nodes is defined ) and ( __workflow_loop_item.simplified_workflow_nodes  | type_debug == "list" )
+  ansible.builtin.set_fact:
+    simplified_nodes: "{{ __workflow_loop_item.simplified_workflow_nodes }}"
+
 - name: add_workflows_schema | Create the Workflow Nodes
   workflow_job_template_node:
     identifier: "{{ __workflow_loop_node_item.identifier | mandatory }}" # internal identification ID
@@ -54,18 +64,14 @@
   when: ansible_check_mode and __workflows_node_async.failed is defined and __workflows_node_async.failed
 
 - name: add_workflows_schema | Manage Workflows | Wait for finish the workflow creation
-  ansible.builtin.async_status:
-    jid: "{{ __workflows_node_async_results_item.ansible_job_id }}"
-  register: __workflows_node_async_result
-  until: __workflows_node_async_result.finished
-  retries: 10
+  ansible.builtin.include_tasks: workflow_node_async.yaml
   loop: "{{ __workflows_node_async.results }}"
   loop_control:
     loop_var: __workflows_node_async_results_item
   when: not ansible_check_mode and __workflows_node_async_results_item.ansible_job_id is defined
   no_log: "{{ workflow_job_templates_secure_logging }}"
   vars:
-    ansible_async_dir: "{{ aap_configuration_async_dir }}"
+    ansible_async_dir: '{{ aap_configuration_async_dir }}'
 
 # Create links between workflow node
 - name: add_workflows_schema | Create links between Workflow Nodes
@@ -107,12 +113,7 @@
   when: ansible_check_mode and __workflows_link_async.failed is defined and __workflows_link_async.failed
 
 - name: add_workflows_schema | Manage Workflows | Wait for finish the workflow creation
-  ansible.builtin.async_status:
-    jid: "{{ __workflows_link_async_results_item.ansible_job_id }}"
-  register: __workflows_link_async_result
-  until: __workflows_link_async_result.finished
-  retries: "{{ controller_configuration_workflow_async_retries }}"
-  delay: "{{ controller_configuration_workflow_async_delay }}"
+  ansible.builtin.include_tasks: workflow_node_link_async.yaml
   loop: "{{ __workflows_link_async.results }}"
   loop_control:
     loop_var: __workflows_link_async_results_item
