@@ -2,9 +2,6 @@
 repos:
 <<<<<<< HEAD
   - repo: 'https://github.com/pre-commit/pre-commit-hooks'
-=======
-  - repo: https://github.com/pre-commit/pre-commit-hooks
->>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
     rev: v5.0.0
     hooks:
       - id: end-of-file-fixer
@@ -19,10 +16,7 @@ repos:
   #       types:
   #         - yaml
   - repo: 'https://github.com/ansible-community/ansible-lint.git'
-=======
-  - repo: https://github.com/ansible-community/ansible-lint.git
->>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
-    rev: v24.9.2
+    rev: v24.12.1
     hooks:
       # see discussions here about what arguments are used, and behavior
       # https://github.com/ansible/ansible-lint/issues/649
@@ -39,17 +33,7 @@ repos:
           - "ansible-core>=2.13"
           - "yamllint>=1.26,<2.0"
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.14.0
-=======
-        entry: ansible-lint
-        args:
-          - --profile=production
-        additional_dependencies:
-          - ansible-core>=2.15
-          - yamllint>=1.26,<2.0
-  - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.15.0
->>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
+    rev: v0.16.0
     hooks:
       - id: markdownlint-cli2
   - repo: https://github.com/ambv/black

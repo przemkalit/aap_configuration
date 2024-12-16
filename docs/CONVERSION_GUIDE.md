@@ -46,7 +46,6 @@ The Following Variables need to be changed:
 
 The Following Variables need to be changed:
 
->>>>>>> 05b830566dcc61b49195ee27848426b7a0a12574
 |Tower Variable Name|Controller Variable Name|
 |:---:|:---:|
 |`tower_ad_hoc_commands`|`controller_ad_hoc_commands`|
